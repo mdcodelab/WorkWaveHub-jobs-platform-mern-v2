@@ -6,12 +6,27 @@ import {AddJob, AllJobs, DashboardLayout, EditJob, Error, HomeLayout, Landing, L
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomeLayout></HomeLayout>
-  }, {
-    path: "/about",
-    element: (<div><h1>About page</h1></div>)
-  }
-])
+    element: <HomeLayout></HomeLayout>,
+    children: [
+      {
+        index: true,
+        element: (<Landing></Landing>)
+      },
+      {
+        path: "register",
+        element: <Register></Register>,
+      },
+      {
+        path: "login",
+        element: <Login></Login>,
+      },
+      {
+        path: "dashboard",
+        element: <DashboardLayout></DashboardLayout>,
+      },
+    ],
+  },
+]);
 
 function App() {
   return (
