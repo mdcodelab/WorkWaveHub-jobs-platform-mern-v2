@@ -18,7 +18,7 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     height: 100%;
-    width: 13.5rem;
+    width: 15.7rem;
     justify-content: space-between;
     margin: 0 auto;
   }

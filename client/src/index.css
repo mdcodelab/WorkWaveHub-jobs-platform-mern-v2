@@ -237,7 +237,7 @@ button:disabled {
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-2);
   padding: 2rem 2.5rem;
-  margin: 3rem auto;
+  margin: 0rem auto;
 }
 .form-label {
   display: block;

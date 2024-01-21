@@ -1,8 +1,14 @@
 import React from 'react';
 import styled from "styled-components";
 import {Link} from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 function Landing() {
+    React.useEffect(() => {
+      AOS.init();
+    }, []);
+
   return (
     <Wrapper>
       <nav>
@@ -162,7 +168,7 @@ const Wrapper = styled.div`
   }
 
   .cover__content h1 span {
-    color: var(--primary-500);
+    color: var(--primary-900);
   }
 
   .cover__content p {
@@ -175,7 +181,7 @@ const Wrapper = styled.div`
     width: 20rem;
     display: flex;
     align-items: center;
-    justify-content: space- + between;
+    justify-content: space-between;
   }
 
   .buttons a {
@@ -184,15 +190,17 @@ const Wrapper = styled.div`
     width: max-content;
     margin-top: 2.5rem;
     padding: 0.5rem 0.6rem;
-    animation: appear 2.5s ease;
+    background: var(--primary-900);
+    transform: translateY(300px);
+    animation: appear 1s ease forwards;
   }
 
   @keyframes appear {
     0% {
-      transform: scale(0);
+      transform: translateY(300px);
     }
     100% {
-      transform: scale(1);
+      transform: translateY(0px);
     }
   }
 
@@ -281,7 +289,7 @@ const Wrapper = styled.div`
     }
   }
 
-  @media (max-width: 303px) {
+  @media screen and (max-width: 303px) {
     .cover__content h1 {
       font-size: 1.5rem;
     }
@@ -289,7 +297,7 @@ const Wrapper = styled.div`
       font-size: 1rem;
     }
     .buttons {
-        margin-top: -2rem;
+      margin-top: -2rem;
     }
   }
 `;

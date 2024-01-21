@@ -14,7 +14,7 @@ function Error() {
               <h1>404</h1>
               <h4>...Oooops! Page not fund!</h4>
               <img src={frog} alt="cannot found"></img>
-              <Link to="/" className="btn btn-hero">
+              <Link to="/dashboard" className="btn btn-hero">
                 Back Home
               </Link>
             </div>
