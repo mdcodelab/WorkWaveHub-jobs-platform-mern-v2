@@ -21,7 +21,7 @@ function Register() {
         </button>
         <div className="check-member">
           <span>Already a member?</span>
-          <Link to="/login" className="member-btn">
+          <Link to="/login" className="member-btn" style={{color: "var(--primary-700"}}>
             Login
           </Link>
         </div>

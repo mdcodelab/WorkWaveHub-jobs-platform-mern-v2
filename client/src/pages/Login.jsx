@@ -22,7 +22,7 @@ function Login() {
         </button>
         <div className="check-member">
           <span>Not a member?</span>
-          <Link to="/register" className="member-btn">
+          <Link to="/register" className="member-btn" style={{color: "var(--primary-700"}}>
             Register
           </Link>
         </div>
