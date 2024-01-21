@@ -14,17 +14,17 @@ function Logo() {
 
 const Wrapper = styled.div`
   .logo__content {
-    height: 3rem;
     display: flex;
     align-items: center;
     height: 100%;
-    width: 15.7rem;
+    width: max-content;
     justify-content: space-between;
     margin: 0 auto;
   }
 
   .logo__content h2 {
     margin: 0;
+    margin-right: 0.5rem;
     width: 2.5rem;
     height: 2.5rem;
     font-size: 2rem;

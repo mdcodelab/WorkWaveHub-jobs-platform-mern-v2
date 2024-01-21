@@ -8,7 +8,9 @@ function Register() {
   return (
     <Wrapper>
       <form className="form">
-        <Logo style={{ width: "100%" }}></Logo>
+        <div className="logo">
+          <Logo></Logo>
+        </div>
         <h3>Register</h3>
         <FormRow type="text" name="name" labelText="Name"></FormRow>
         <FormRow type="text" name="lastName" labelText="Last Name"></FormRow>
@@ -20,12 +22,9 @@ function Register() {
         <div className="check-member">
           <span>Already a member?</span>
           <Link to="/login" className="member-btn">
-            Login page
+            Login
           </Link>
         </div>
-        <Link to="/" className="back-home">
-          Back Home
-        </Link>
       </form>
     </Wrapper>
   );
@@ -34,16 +33,24 @@ function Register() {
 const Wrapper = styled.div`
 height: 100vh;
 width: 100%;
-overflow: hidden;
 
 .form {
-    width: 500px;
+    width: 300px;
     height: 100%;
-    border: 2px solid red;
+    box-shadow: var(--shadow-2);
+    border-top: 4px solid var(--primary-500);
+    margin: 0 auto;
+}
+
+.logo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .form h3 {
-    margin: 1.5rem 0;
+    margin: 1rem 0;
     text-align: center;
 }
 
@@ -52,8 +59,7 @@ overflow: hidden;
     width: 100%;
     align-items: center;
     justify-content: center;
-    margin: 2rem 0;
-    border: 2px solid red;
+    margin: 1.5rem 0;
 }
 
 .member-btn {
