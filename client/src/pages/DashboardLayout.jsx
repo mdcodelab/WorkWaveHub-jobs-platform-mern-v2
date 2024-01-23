@@ -1,12 +1,71 @@
 import React from 'react';
 import {Outlet} from "react-router-dom";
+import SmallSidebar from '../components/SmallSidebar';
+import BigSidebar from '../components/BigSidebar';
+import Navbar from '../components/Navbar';
+import styled from "styled-components";
+import {createContext, useContext} from "react";
 
 function DashboardLayout() {
+
+  const DashboardContext=createContext();
+  
+  const user={name: "john"};
+
+  const[isSidebar, setIsSidebar]=React.useState(false);
+  const[darkTheme, setDarkTheme]=React.useState(false);
+
+  function toggleDarkTheme() {
+    console.log("dark theme");
+  }
+
+  function toggleSidebar() {
+    setIsSidebar(!isSidebar);
+  }
+
+  async function logoutUser () {
+    console.log("logout user")
+  }
+
+
   return (
-    <div>
-      <Outlet></Outlet>
-    </div>
+    <DashboardContext.Provider value={{
+      user, isSidebar, setIsSidebar, darkTheme, setDarkTheme, toggleDarkTheme
+    }}>
+    <Wrapper className="dashboard">
+      <BigSidebar></BigSidebar>
+      <SmallSidebar></SmallSidebar>
+      <div>
+        <Navbar></Navbar>
+        <div className="dashboard-page">
+          <Outlet></Outlet>
+        </div>
+      </div>
+    </Wrapper>
+    </DashboardContext.Provider>
   );
 }
+
+export const useDashboardContext = () => useContext(DashboardContext);
+
+const Wrapper = styled.div`
+display: grid;
+grid-template-columns: 1fr;
+
+.dashboard-page {
+  width: 90vw;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+@media (min-width: 992px) {
+  .dashboard {
+    grid-template-columns: auto 1fr;
+  }
+  .dashboard {
+    width: 90%;
+  }
+}
+`;
 
 export default DashboardLayout;
