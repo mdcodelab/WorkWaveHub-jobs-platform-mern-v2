@@ -6,10 +6,10 @@ import Navbar from '../components/Navbar';
 import styled from "styled-components";
 import {createContext, useContext} from "react";
 
+const DashboardContext = createContext();
+
 function DashboardLayout() {
 
-  const DashboardContext=createContext();
-  
   const user={name: "john"};
 
   const[isSidebar, setIsSidebar]=React.useState(false);
