@@ -1,53 +1,116 @@
-import React from 'react';
-import styled from "styled-components";
 import { FaTimes } from 'react-icons/fa';
-import {links} from "./links";
-import {Link} from "react-router-dom";
-import Logo from "./Logo";
+import styled from "styled-components";
+import Logo from './Logo';
+import { NavLink } from 'react-router-dom';
+import {links} from './links';
 import { useDashboardContext } from '../pages/DashboardLayout';
 
-
-function SmallSidebar() {
-const {showSidebar}=useDashboardContext();
-console.log(showSidebar);
-
+const SmallSidebar = () => {
+  const { showSidebar, toggleSidebar } = useDashboardContext();
   return (
-    <Wrapper className={showSidebar ? "show-sidebar sidebar" : "sidebar"}>
-      <div className="content">
-        <header>
-            <Logo></Logo>
-        </header>
-        <div className="sidebar-content">
-            {links.map((link, index)=> {
-                const{text, path, icon}=link;
-                return <Link to={path} key={index}>{icon} {text}</Link>
+    <Wrapper>
+      <div
+        className={
+          showSidebar ? 'sidebar-container show-sidebar' : 'sidebar-container'
+        }
+      >
+        <div className='content'>
+          <button type='button' className='close-btn' onClick={toggleSidebar}>
+            <FaTimes />
+          </button>
+          <header>
+            <Logo />
+          </header>
+          <div className='nav-links'>
+            {links.map((link) => {
+              const { text, path, icon } = link;
+
+              return (
+                <NavLink
+                  to={path}
+                  key={text}
+                  className='nav-link'
+                  onClick={toggleSidebar}
+                  // will discuss in a second
+                  end
+                >
+                  <span className='icon'>{icon}</span>
+                  {text}
+                </NavLink>
+              );
             })}
+          </div>
         </div>
       </div>
-</Wrapper>
+    </Wrapper>
   );
-}
+};
 
-const Wrapper = styled.div`
-width: 15rem;
-height: 100%;
-position: fixed;
-top: 0; left: 0;
-padding: 2rem;
-
-
-  .sidebar-content a {
-        display: block;
-        font-size: 1.25rem;
-        margin-top: 1.5rem;
-        text-transform: capitalize;
-    }
-
-    @media (max-width: 992px) {
-      .sidebar{
-        display: none !important;
-      }
-    }
-  `;
-
+const Wrapper = styled.aside`
+  @media (min-width: 992px) {
+    display: none;
+  }
+  .sidebar-container {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: -1;
+    opacity: 0;
+    transition: var(--transition);
+    visibility: hidden;
+  }
+  .show-sidebar {
+    z-index: 99;
+    opacity: 1;
+    visibility: visible;
+  }
+  .content {
+    background: var(--background-secondary-color);
+    width: var(--fluid-width);
+    height: 95vh;
+    border-radius: var(--border-radius);
+    padding: 4rem 2rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: transparent;
+    border-color: transparent;
+    font-size: 2rem;
+    color: var(--red-dark);
+    cursor: pointer;
+  }
+  .nav-links {
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .nav-link {
+    display: flex;
+    align-items: center;
+    color: var(--text-secondary-color);
+    padding: 1rem 0;
+    text-transform: capitalize;
+    transition: var(--transition);
+  }
+  .nav-link:hover {
+    color: var(--primary-500);
+  }
+  .icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    display: grid;
+    place-items: center;
+  }
+  .active {
+    color: var(--primary-500);
+  }`
 export default SmallSidebar;
