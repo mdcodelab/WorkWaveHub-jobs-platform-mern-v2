@@ -1,73 +1,76 @@
-import React from 'react';
-import { FaAlignLeft } from "react-icons/fa";
 import styled from "styled-components";
-import Logo from './Logo';
-import { useDashboardContext } from '../pages/DashboardLayout';
+import { FaAlignLeft } from "react-icons/fa";
+import Logo from "./Logo";
+import { useDashboardContext } from "../pages/DashboardLayout";
+//import LogoutContainer from "./LogoutContainer";
+//import ThemeToggle from "./ThemeToggle";
 
-function Navbar() {
+const Navbar = () => {
   const { toggleSidebar } = useDashboardContext();
-  const [showLogo, setLogo] = React.useState(window.innerWidth <= 992);
-
-React.useEffect(() => {
-const handleResize = () => {
-    setLogo(window.innerWidth<=992)
-}
-window.addEventListener("resize", handleResize);
-return () =>window.removeEventListener("resize", handleResize);
-}, []);
-
   return (
-    <Wrapper className="nav">
+    <Wrapper>
       <div className="nav-center">
-        <FaAlignLeft
-          className="toggle-btn"
-          onClick={toggleSidebar}
-          style={{
-            fontSize: "2rem",
-            color: "var(--primary-500",
-            cursor: "pointer",
-          }}
-        ></FaAlignLeft>
-        {showLogo && <Logo></Logo>}
-        <h4 className="none">Dashboard</h4>
-        <div className="btn-container">toggle/logout</div>
+        <button type="button" className="toggle-btn" onClick={toggleSidebar}>
+          <FaAlignLeft />
+        </button>
+        <div>
+          
+          <h4 className="logo-text">dashboard</h4>
+        </div>
+        <div className="btn-container">
+         
+        </div>
       </div>
     </Wrapper>
   );
-}
+};
 
-const Wrapper = styled.div`
-border: 2px solid red;
+const Wrapper = styled.nav`
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);
+  background: var(--background-secondary-color);
   .nav-center {
-    height: 6rem;
-    max-width: 1120px;
-    margin: 0 auto;
-    width: 100%;
     display: flex;
+    width: 90vw;
     align-items: center;
     justify-content: space-between;
-    background: var(--background-secondary-color);
   }
-
+  .toggle-btn {
+    background: transparent;
+    border-color: transparent;
+    font-size: 1.75rem;
+    color: var(--primary-500);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  .logo-text {
+    display: none;
+  }
   .logo {
     display: flex;
     align-items: center;
-    justify-content: center;
+    width: 100px;
   }
-
-  @media (max-width: 992px) {
-    .none {
-        display: none;
-    }
+  .btn-container {
+    display: flex;
+    align-items: center;
   }
-
   @media (min-width: 992px) {
-    .nav {
-        position: sticky;
-        top: 0;
+    position: sticky;
+    top: 0;
+    .nav-center {
+      width: 90%;
+    }
+    .logo {
+      display: none;
+    }
+    .logo-text {
+      display: block;
     }
   }
 `;
-
 export default Navbar;
-

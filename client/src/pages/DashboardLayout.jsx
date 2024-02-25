@@ -9,10 +9,11 @@ import {createContext, useContext} from "react";
 const DashboardContext = createContext();
 
 function DashboardLayout() {
-
+//temp
   const user={name: "john"};
 
-  const[isSidebar, setIsSidebar]=React.useState(false);
+  const[showSidebar, setShowSidebar]=React.useState(false);
+  
   const[darkTheme, setDarkTheme]=React.useState(false);
 
   function toggleDarkTheme() {
@@ -20,7 +21,7 @@ function DashboardLayout() {
   }
 
   function toggleSidebar() {
-    setIsSidebar(!isSidebar);
+    setShowSidebar(!showSidebar);
   }
 
   async function logoutUser () {
@@ -30,7 +31,7 @@ function DashboardLayout() {
 
   return (
     <DashboardContext.Provider value={{
-      user, isSidebar, setIsSidebar, darkTheme, setDarkTheme, toggleDarkTheme
+      user, showSidebar, setShowSidebar, darkTheme, setDarkTheme, toggleDarkTheme, toggleSidebar
     }}>
     <Wrapper className="dashboard">
       <BigSidebar></BigSidebar>
