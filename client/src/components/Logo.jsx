@@ -24,7 +24,7 @@ const Wrapper = styled.div`
 
   .logo__content h2 {
     margin: 0;
-    margin-right: 0.5rem;
+    margin-right: 0.3rem;
     width: 2.5rem;
     height: 2.5rem;
     font-size: 2rem;
@@ -40,6 +40,8 @@ const Wrapper = styled.div`
     color: var(--primary-500);
     margin: 0;
     font-weight: bold;
+    letter-spacing: 0.005rem;
+    font-size: 1.3rem;
   }
 `;
 

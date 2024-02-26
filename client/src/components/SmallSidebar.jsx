@@ -1,9 +1,9 @@
-import { FaTimes } from 'react-icons/fa';
+import { FaTimes } from "react-icons/fa";
 import styled from "styled-components";
-import Logo from './Logo';
-import { NavLink } from 'react-router-dom';
-import {links} from './links';
-import { useDashboardContext } from '../pages/DashboardLayout';
+import Logo from "./Logo";
+import { NavLink } from "react-router-dom";
+import { links } from "./links";
+import { useDashboardContext } from "../pages/Dashboard";
 
 const SmallSidebar = () => {
   const { showSidebar, toggleSidebar } = useDashboardContext();
@@ -11,17 +11,17 @@ const SmallSidebar = () => {
     <Wrapper>
       <div
         className={
-          showSidebar ? 'sidebar-container show-sidebar' : 'sidebar-container'
+          showSidebar ? "sidebar-container show-sidebar" : "sidebar-container"
         }
       >
-        <div className='content'>
-          <button type='button' className='close-btn' onClick={toggleSidebar}>
+        <div className="content">
+          <button type="button" className="close-btn" onClick={toggleSidebar}>
             <FaTimes />
           </button>
           <header>
             <Logo />
           </header>
-          <div className='nav-links'>
+          <div className="nav-links">
             {links.map((link) => {
               const { text, path, icon } = link;
 
@@ -29,12 +29,12 @@ const SmallSidebar = () => {
                 <NavLink
                   to={path}
                   key={text}
-                  className='nav-link'
+                  className="nav-link"
                   onClick={toggleSidebar}
                   // will discuss in a second
                   end
                 >
-                  <span className='icon'>{icon}</span>
+                  <span className="icon">{icon}</span>
                   {text}
                 </NavLink>
               );
@@ -112,5 +112,6 @@ const Wrapper = styled.aside`
   }
   .active {
     color: var(--primary-500);
-  }`
+  }
+`;
 export default SmallSidebar;

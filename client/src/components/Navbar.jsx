@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { FaAlignLeft } from "react-icons/fa";
 import Logo from "./Logo";
-import { useDashboardContext } from "../pages/DashboardLayout";
+import { useDashboardContext } from "../pages/Dashboard";
 //import LogoutContainer from "./LogoutContainer";
 //import ThemeToggle from "./ThemeToggle";
 
@@ -14,12 +14,9 @@ const Navbar = () => {
           <FaAlignLeft />
         </button>
         <div>
-          
           <h4 className="logo-text">dashboard</h4>
         </div>
-        <div className="btn-container">
-         
-        </div>
+        <div className="btn-container"></div>
       </div>
     </Wrapper>
   );
@@ -32,6 +29,7 @@ const Wrapper = styled.nav`
   justify-content: center;
   box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);
   background: var(--background-secondary-color);
+
   .nav-center {
     display: flex;
     width: 90vw;
