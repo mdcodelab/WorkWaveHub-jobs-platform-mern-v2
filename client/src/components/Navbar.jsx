@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { FaAlignLeft } from "react-icons/fa";
 import Logo from "./Logo";
 import { useDashboardContext } from "../pages/Dashboard";
-//import LogoutContainer from "./LogoutContainer";
+import LogoutContainer from "./LogoutContainer";
 //import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
@@ -16,7 +16,9 @@ const Navbar = () => {
         <div>
           <h4 className="logo-text">dashboard</h4>
         </div>
-        <div className="btn-container"></div>
+        <div className="btn-container">
+          <LogoutContainer></LogoutContainer>
+        </div>
       </div>
     </Wrapper>
   );
