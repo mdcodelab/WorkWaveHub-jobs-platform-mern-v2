@@ -29,6 +29,20 @@ app.get("/api/v1/jobs", (req, res) => {
   res.status(200).json({ jobs });
 });
 
+//create job
+app.post("/api/v1/jobs", (req, res) => {
+    const {company, position}=req.body;
+    if(!company || !position) {
+        res.status(400).json({msg: "Please provide company && position"});
+    }
+    const id=nanoid(10);
+    const job={id, company, position};
+    jobs.push(job);
+  res.status(200).json({ job });
+});
+
+
+
 const port = process.env.POrt || 3100; 
 
 app.listen(port, () => {
