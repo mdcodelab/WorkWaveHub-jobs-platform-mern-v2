@@ -2090,7 +2090,7 @@ export const deleteJob = async (req, res) => {
   if (!job) {
     return res.status(404).json({ msg: `no job with id ${id}` });
   }
-  const newJobs = jobs.filter((job) => job.id !== id);
+  const newJobs = jobs.filter((job) => job.id === id);
   jobs = newJobs;
 
   res.status(200).json({ msg: 'job deleted' });
