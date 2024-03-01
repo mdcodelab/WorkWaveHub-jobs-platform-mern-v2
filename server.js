@@ -80,6 +80,18 @@ app.delete("/api/v1/jobs/:id", (req, res) => {
   res.status(200).json({ msg: "Job deleted", newJobs });
 });
 
+//not found
+app.use("*", (req,res) => {
+    res.status(404).json({msg: "Not found"}) //"not-found" middleware requests for non-existing routes
+})
+
+//error middleware
+app.use((err, req,res, next) => {
+    console.log(err);
+res.status(500).json({msg: "Something went wrong"}); //"error" middleware is a catch-all for handling unexpected errors that occur during request processing.
+
+})
+
 
 
 
