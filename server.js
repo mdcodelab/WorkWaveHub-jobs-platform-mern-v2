@@ -6,6 +6,8 @@ import morgan from "morgan";
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+import connectDB from "./connectDB.js";
+
 import {nanoid} from "nanoid";
 import jobRouter from "./router/jobRouter.js";
 
@@ -98,8 +100,18 @@ res.status(500).json({msg: "Something went wrong"}); //"error" middleware is a c
 
 
 
-const port = process.env.POrt || 3100; 
+const port = process.env.PORT || 3100; 
 
-app.listen(port, () => {
-  console.log(`server is running on port ${port}`);
-});
+const start = async () => {
+  try {
+    await connectDB(process.env.MONGO_URL);
+    console.log("Connection to database");
+    app.listen(port, () => {
+      console.log(`server is listening at port ${port}`);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+start();
