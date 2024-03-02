@@ -1,14 +1,15 @@
+import "express-async-errors";
 import * as dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 const app = express();
 import morgan from "morgan";
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
 }
 import connectDB from "./connectDB.js";
 
-import {nanoid} from "nanoid";
+import { nanoid } from "nanoid";
 import jobRouter from "./router/jobRouter.js";
 
 // const jobs = [
@@ -53,7 +54,7 @@ app.use("/api/v1/jobs", jobRouter);
 //     if(!job) {
 //         return res.status(404).json({msg: `No job with id ${id}`})
 //     }
-//   res.status(200).json({ job }); 
+//   res.status(200).json({ job });
 // });
 
 // //edit job
@@ -81,26 +82,22 @@ app.use("/api/v1/jobs", jobRouter);
 //   }
 //   const newJobs=jobs.filter((job)=> job.id !==id);
 //   jobs=newJobs;
-  
+
 //   res.status(200).json({ msg: "Job deleted", newJobs });
 // });
 
 //not found
-app.use("*", (req,res) => {
-    res.status(404).json({msg: "Not found"}) //"not-found" middleware requests for non-existing routes
-})
+app.use("*", (req, res) => {
+  res.status(404).json({ msg: "Not found" }); //"not-found" middleware requests for non-existing routes
+});
 
 //error middleware
-app.use((err, req,res, next) => {
-    console.log(err);
-res.status(500).json({msg: "Something went wrong"}); //"error" middleware is a catch-all for handling unexpected errors that occur during request processing.
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(500).json({ msg: "Something went wrong" }); //"error" middleware is a catch-all for handling unexpected errors that occur during request processing.
+});
 
-})
-
-
-
-
-const port = process.env.PORT || 3100; 
+const port = process.env.PORT || 3100;
 
 const start = async () => {
   try {
