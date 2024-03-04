@@ -4,7 +4,7 @@ import express from "express";
 const app = express();
 import {body, validationResult} from "express-validator";
 import morgan from "morgan";
-import { validateTest } from "./middleware/validationMiddleware.js";
+//import { validateTest } from "./middleware/validationMiddleware.js";
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
@@ -29,14 +29,14 @@ app.get("/", (req, res) => {
 //   res.json({ message: "Data received...", data: req.body });
 // });
 
-app.post("/api/v1/test",
-  [body("name").notEmpty().withMessage("name is required")],
-  validateTest,
-  (req, res) => {
-    const { name } = req.body;
-    res.json({ msg: `hello ${name}` });
-  }
-);
+// app.post("/api/v1/test",
+//   [body("name").notEmpty().withMessage("name is required")],
+//   validateTest,
+//   (req, res) => {
+//     const { name } = req.body;
+//     res.json({ msg: `hello ${name}` });
+//   }
+// );
 
 app.use("/api/v1/jobs", jobRouter);
 
