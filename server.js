@@ -12,6 +12,7 @@ import connectDB from "./connectDB.js";
 
 import { nanoid } from "nanoid";
 import jobRouter from "./router/jobRouter.js";
+import userRouter from "./router/userRouter.js";
 
 // const jobs = [
 //     {id: nanoid(), company: "apple", position: "front-end"},
@@ -39,6 +40,7 @@ app.get("/", (req, res) => {
 // );
 
 app.use("/api/v1/jobs", jobRouter);
+app.use("/api/v1/auth", userRouter);
 
 // //get all jobs
 // app.get("/api/v1/jobs", (req, res) => {
