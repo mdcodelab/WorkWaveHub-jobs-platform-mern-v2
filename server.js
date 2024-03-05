@@ -40,7 +40,7 @@ app.get("/", (req, res) => {
 // );
 
 app.use("/api/v1/jobs", jobRouter);
-app.use("/api/v1/auth", userRouter);
+app.use("/api/v1/auth", userRouter); //api/v1/auth/register & api/v1/auth/login
 
 // //get all jobs
 // app.get("/api/v1/jobs", (req, res) => {
