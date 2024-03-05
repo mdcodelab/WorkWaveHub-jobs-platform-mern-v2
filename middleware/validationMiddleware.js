@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { body, validationResult } from "express-validator";
 import { param } from 'express-validator';
 import { JOB_STATUS, JOB_TYPE, JOB_SORT_BY } from "../utils/constants.js";
-
+import Job from "../models/jobModel.js"
 const withValidationErrors = (validateValues) => {
   return [
     validateValues,
@@ -27,9 +27,28 @@ export const validateJobInput = withValidationErrors([
   body("jobType").isIn(Object.values(JOB_TYPE)).withMessage("invalid job type"),
 ]);
 
+// export const validateIdParam = withValidationErrors([
+//   param("id")
+//     .custom((value) => mongoose.Types.ObjectId.isValid(value))
+//     .withMessage("invalid MongoDB id"),
+// ]);
+
+
 export const validateIdParam = withValidationErrors([
-  param("id")
-    .custom((value) => mongoose.Types.ObjectId.isValid(value))
-    .withMessage("invalid MongoDB id"),
+  param("id").custom(async (value) => {
+    const isValidId = mongoose.Types.ObjectId.isValid(value);
+    if (!isValidId) {
+      const error = new Error("invalid MongoDB id");
+      error.statusCode = 400;
+      throw error;
+    }
+    const job = await Job.findById(value);
+    if (!job) {
+      const error = new Error(`no job with id : ${value}`);
+      error.statusCode = 404;
+      throw error;
+    }
+  }),
 ]);
+
 
