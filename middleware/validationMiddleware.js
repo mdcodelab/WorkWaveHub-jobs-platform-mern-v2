@@ -2,7 +2,9 @@ import mongoose from "mongoose";
 import { body, validationResult } from "express-validator";
 import { param } from 'express-validator';
 import { JOB_STATUS, JOB_TYPE, JOB_SORT_BY } from "../utils/constants.js";
-import Job from "../models/jobModel.js"
+import Job from "../models/jobModel.js";
+import User from "../models/userModel.js";
+
 const withValidationErrors = (validateValues) => {
   return [
     validateValues,
@@ -39,16 +41,76 @@ export const validateIdParam = withValidationErrors([
     const isValidId = mongoose.Types.ObjectId.isValid(value);
     if (!isValidId) {
       const error = new Error("invalid MongoDB id");
-      error.statusCode = 400;
+      error.status = 400;
       throw error;
     }
     const job = await Job.findById(value);
     if (!job) {
       const error = new Error(`no job with id : ${value}`);
-      error.statusCode = 404;
+      error.status = 404;
       throw error;
     }
   }),
 ]);
+
+// export const validateRegisterInput = withValidationErrors([
+//   body("name").notEmpty().withMessage("name is required"),
+//   body("email")
+//     .notEmpty()
+//     .withMessage("email is required")
+//     .isEmail()
+//     .withMessage("invalid email format")
+//     .custom(async (email) => {
+//       const user = await User.findOne({ email });
+//       if (user) {
+//         const error= new Error("email already exists");
+//         error.status=400;
+//         throw error
+//       }
+//     }),
+//   body("password")
+//     .notEmpty()
+//     .withMessage("password is required")
+//     .isLength({ min: 8 })
+//     .withMessage("password must be at least 8 characters long"),
+//   body("location").notEmpty().withMessage("location is required"),
+//   body("lastName").notEmpty().withMessage("last name is required"),
+// ]);
+
+
+
+
+export const validateRegisterInput = [
+  body("name").notEmpty().withMessage("name is required"),
+  body("email")
+    .notEmpty()
+    .withMessage("email is required")
+    .isEmail()
+    .withMessage("invalid email format")
+    .custom(async (email, { req }) => {
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        throw new Error("email already exists");
+      }
+    }),
+  body("password")
+    .notEmpty()
+    .withMessage("password is required")
+    .isLength({ min: 8 })
+    .withMessage("password must be at least 8 characters long"),
+  body("location").notEmpty().withMessage("location is required"),
+  body("lastName").notEmpty().withMessage("last name is required"),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    next();
+  },
+];
+
+
+
+
 
 
