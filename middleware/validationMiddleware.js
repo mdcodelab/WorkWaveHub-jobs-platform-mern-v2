@@ -53,32 +53,6 @@ export const validateIdParam = withValidationErrors([
   }),
 ]);
 
-// export const validateRegisterInput = withValidationErrors([
-//   body("name").notEmpty().withMessage("name is required"),
-//   body("email")
-//     .notEmpty()
-//     .withMessage("email is required")
-//     .isEmail()
-//     .withMessage("invalid email format")
-//     .custom(async (email) => {
-//       const user = await User.findOne({ email });
-//       if (user) {
-//         const error= new Error("email already exists");
-//         error.status=400;
-//         throw error
-//       }
-//     }),
-//   body("password")
-//     .notEmpty()
-//     .withMessage("password is required")
-//     .isLength({ min: 8 })
-//     .withMessage("password must be at least 8 characters long"),
-//   body("location").notEmpty().withMessage("location is required"),
-//   body("lastName").notEmpty().withMessage("last name is required"),
-// ]);
-
-
-
 
 export const validateRegisterInput = [
   body("name").notEmpty().withMessage("name is required"),
@@ -111,48 +85,12 @@ export const validateRegisterInput = [
 
 import bcrypt from "bcrypt";
 
-export const validateLoginInput = [
+export const validateLoginInput = withValidationErrors([
   body("email")
     .notEmpty()
-    .withMessage("Email is required")
+    .withMessage("email is required")
     .isEmail()
-    .withMessage("Invalid email format"),
-  body("password").notEmpty().withMessage("Password is required"),
-  async (req, res, next) => {
-    const errors = validationResult(req);
-
-    // Verificarea dacă există erori de validare
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
-    try {
-      const { email, password } = req.body;
-
-      // Căutarea utilizatorului în baza de date
-      const existingUser = await User.findOne({ email });
-
-      // Verificarea dacă utilizatorul există
-      if (!existingUser) {
-        return res.status(404).json({ error: "Email does not exist" });
-      }
-
-      // Verificarea parolei
-      const passwordMatch = await bcrypt.compare(
-        password,
-        existingUser.password
-      );
-      if (!passwordMatch) {
-        return res.status(401).json({ error: "Incorrect password" });
-      }
-
-      // Dacă totul este în regulă, continuăm cu următoarea etapă
-      next();
-    } catch (error) {
-      console.error("Login validation error:", error);
-      res.status(500).json({ error: "Internal server error" });
-    }
-  },
-];
-
+    .withMessage("invalid email format"),
+  body("password").notEmpty().withMessage("password is required"),
+]);
 
