@@ -4,11 +4,11 @@ import express from "express";
 const app = express();
 import {body, validationResult} from "express-validator";
 import morgan from "morgan";
-//import { validateTest } from "./middleware/validationMiddleware.js";
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 import { authenticateUser } from "./middleware/authMiddleware.js";
+import cookieParser from "cookie-parser";
 import connectDB from "./connectDB.js";
 
 import { nanoid } from "nanoid";
@@ -20,6 +20,7 @@ import userRouter from "./router/userRouter.js";
 //     {id: nanoid(), company: "microsoft", position: "back-end"}
 // ]
 
+app.use(cookieParser());
 app.use(express.json());
 
 app.get("/", (req, res) => {

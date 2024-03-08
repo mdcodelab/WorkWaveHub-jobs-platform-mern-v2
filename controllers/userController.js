@@ -1,7 +1,7 @@
 import User from "../models/userModel.js";
 import { StatusCodes } from "http-status-codes";
 import bcrypt from "bcrypt";
-import { createJWT } from "../utils/jwtToke.js";
+import { createJWT } from "../utils/jwtToken.js";
 
 
 //create user
