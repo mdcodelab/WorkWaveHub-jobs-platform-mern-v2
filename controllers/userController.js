@@ -45,8 +45,13 @@ export const login = async (req, res) => {
 
     const token=createJWT({userID: user._id, role: user.role});
 
+    const oneDay = 1000*60*60*24; //one day in miliseconds
+
+    res.cookie("token", token, {httpOnly: true,
+      expires: new Date(Date.now()+oneDay), secure: process.env.NODE_ENV === "production"})
+
     // Răspunsul dacă autentificarea este reușită
-    res.status(StatusCodes.OK).json({ token });
+    res.status(StatusCodes.OK).json({ msg: "User logged in" });
   
 };
 
