@@ -8,6 +8,7 @@ import morgan from "morgan";
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+import { authenticateUser } from "./middleware/authMiddleware.js";
 import connectDB from "./connectDB.js";
 
 import { nanoid } from "nanoid";
@@ -39,7 +40,7 @@ app.get("/", (req, res) => {
 //   }
 // );
 
-app.use("/api/v1/jobs", jobRouter);
+app.use("/api/v1/jobs", authenticateUser, jobRouter);
 app.use("/api/v1/auth", userRouter); //api/v1/auth/register & api/v1/auth/login
 
 // //get all jobs
