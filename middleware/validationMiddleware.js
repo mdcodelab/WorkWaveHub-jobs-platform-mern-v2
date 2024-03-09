@@ -26,7 +26,9 @@ export const validateJobInput = withValidationErrors([
   body("jobStatus")
     .isIn(Object.values(JOB_STATUS))
     .withMessage("invalid status value"),
-  body("jobType").isIn(Object.values(JOB_TYPE)).withMessage("invalid job type"),
+  body("jobType")
+    .isIn(Object.values(JOB_TYPE))
+    .withMessage("invalid type value"),
 ]);
 
 // export const validateIdParam = withValidationErrors([

@@ -6,26 +6,6 @@ import { createJWT } from "../utils/jwtToken.js";
 
 //create user
 
-// export const register = async (req, res) => {
-//   const { name, email, password, lastName, location } = req.body;
-//   console.log(name, email, password, lastName, location);
-
-//   // Criptarea parolei
-//   const salt = await bcrypt.genSalt(10);
-//   const hashedPassword = await bcrypt.hash(password, salt);
-
-//   // Crearea utilizatorului cu parola criptată
-//   const user = await User.create({
-//     name,
-//     email,
-//     password: hashedPassword, // Salvăm parola criptată
-//     lastName,
-//     location,
-//   });
-//   res.status(StatusCodes.CREATED).json({ user });
-// }
-
-
 export const register = async (req, res) => {
   const { name, email, password, lastName, location } = req.body;
   console.log(name, email, password, lastName, location);
@@ -69,9 +49,9 @@ export const login = async (req, res) => {
       return res.status(401).json({ msg: "Wrong password" });
     }
 
-    const token=createJWT({userID: user._id, role: user.role});
+    const token=createJWT({userId: user._id, role: user.role});
 
-    const oneDay = 1000*60*60*24; //one day in miliseconds
+    const oneDay = 1000*60*60*24; //one day in milliseconds
 
     res.cookie("token", token, {httpOnly: true,
       expires: new Date(Date.now()+oneDay), secure: process.env.NODE_ENV === "production"})

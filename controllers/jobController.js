@@ -12,7 +12,7 @@ import { StatusCodes } from "http-status-codes";
 // }
 
 export const getAllJobs = async (req, res) => {
-  const jobs = await Job.find({});
+  const jobs = await Job.find({ createdBy: req.user.userId});
   res.status(StatusCodes.OK).json({ jobs });
 };
 
@@ -24,7 +24,7 @@ export const getAllJobs = async (req, res) => {
 //    try {
 //     const job=await Job.create({company, position});
 //     if(!company || !position) {
-//       res.status(404).json({msg: "Plase provide company & position"})
+//       res.status(404).json({msg: "Please provide company & position"})
 //     }
 //     res.status(201).json({job});
 //    } catch (error) {
@@ -34,11 +34,12 @@ export const getAllJobs = async (req, res) => {
 
 
 export const createJob = async (req, res) => {
-  const { company, position } = req.body;
-
-  const job = await Job.create({ company, position });
+  req.body.createdBy=req.user.userId;
+  console.log(req.body.createdBy);
+  const job = await Job.create(req.body);
   res.status(StatusCodes.CREATED).json({ job });
 };
+
 
 //get job
 // export const getJob = async (req, res) => {
