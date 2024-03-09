@@ -39,7 +39,7 @@ export const validateJobInput = withValidationErrors([
 
 
 export const validateIdParam = withValidationErrors([
-  param("id").custom(async (value) => {
+  param("id").custom(async (value, {req}) => {
     const isValidId = mongoose.Types.ObjectId.isValid(value);
     if (!isValidId) {
       const error = new Error("invalid MongoDB id");
@@ -52,6 +52,13 @@ export const validateIdParam = withValidationErrors([
       error.status = 404;
       throw error;
     }
+    // const isAdmin = req.user.role === "admin";
+    // const isOwner = req.user.user.Id === job.createdBy.toString();
+    // if(!isAdmin && !isOwner) {
+    //   const error = new Error ("Not authorize to access this route.");
+    //   error.status(401);
+    //   throw error;
+    // }
   }),
 ]);
 
