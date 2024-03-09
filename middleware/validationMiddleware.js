@@ -5,6 +5,20 @@ import { JOB_STATUS, JOB_TYPE, JOB_SORT_BY } from "../utils/constants.js";
 import Job from "../models/jobModel.js";
 import User from "../models/userModel.js";
 
+// const withValidationErrors = (validateValues) => {
+//   return [
+//     validateValues,
+//     (req, res, next) => {
+//       const errors = validationResult(req);
+//       if (!errors.isEmpty()) {
+//         const errorMessages = errors.array().map((error) => error.msg);
+//         res.status(404).json({errorMessages});
+//       }
+//       next();
+//     },
+//   ];
+// };
+
 const withValidationErrors = (validateValues) => {
   return [
     validateValues,
@@ -12,7 +26,22 @@ const withValidationErrors = (validateValues) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         const errorMessages = errors.array().map((error) => error.msg);
-        res.status(404).json({errorMessages});
+
+        const firstMessage = errorMessages[0];
+        console.log(Object.getPrototypeOf(firstMessage));
+        if (errorMessages[0].startsWith("no job")) {
+          const error = new Error(errorMessages);
+          error.status(404);
+          throw error;
+        }
+        if (errorMessages[0].startsWith("not authorized")) {
+          const error = new Error ("not authorized to access this route");
+          error.status=401;
+          throw error;
+        }
+        const error = new Error(errorMessages);
+        error.status = 400;
+        throw error;
       }
       next();
     },
@@ -52,13 +81,13 @@ export const validateIdParam = withValidationErrors([
       error.status = 404;
       throw error;
     }
-    // const isAdmin = req.user.role === "admin";
-    // const isOwner = req.user.user.Id === job.createdBy.toString();
-    // if(!isAdmin && !isOwner) {
-    //   const error = new Error ("Not authorize to access this route.");
-    //   error.status(401);
-    //   throw error;
-    // }
+    const isAdmin = req.user.role === "admin";
+    const isOwner = req.user.user.Id === job.createdBy.toString();
+    if(!isAdmin && !isOwner) {
+      const error = new Error ("Not authorize to access this route.");
+      error.status(401);
+      throw error;
+    }
   }),
 ]);
 
