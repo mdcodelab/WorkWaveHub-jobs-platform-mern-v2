@@ -3,9 +3,8 @@ import { StatusCodes } from "http-status-codes";
 import bcrypt from "bcrypt";
 import { createJWT } from "../utils/jwtToken.js";
 
-
+//authorize controllers:
 //create user
-
 export const register = async (req, res) => {
   const { name, email, password, lastName, location } = req.body;
   console.log(name, email, password, lastName, location);
@@ -69,5 +68,21 @@ export const logout = (req, res) => {
   });
   res.status(StatusCodes.OK).json({ msg: "user logged out!" });
 };
+
+
+
+//user controllers
+export const getCurrentUser = async (req, res) => {
+res.status(StatusCodes.OK).json({msg: "Get current user."})
+}
+
+export const getApplicationStats = async (req, res) => {
+  res.status(StatusCodes.OK).json({ msg: "Get application stats." });
+};
+
+export const updateUser = async (req, res) => {
+  res.status(StatusCodes.OK).json({ msg: "Update user." });
+};
+
 
 

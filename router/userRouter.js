@@ -1,11 +1,11 @@
 import { Router } from "express";
 const router = Router();
 
-import { register, login, logout } from "../controllers/userController.js";
-import { validateRegisterInput, validateLoginInput} from "../middleware/validationMiddleware.js";
+import { getCurrentUser, getApplicationStats, updateUser } from "../controllers/authController.js";
 
-router.post("/register", validateRegisterInput, register);
-router.post("/login", validateLoginInput, login);
-router.get("/logout", logout);
+router.get("/current-user", getCurrentUser);
+router.get("/admin/app-stats", getApplicationStats);
+router.patch("/update-user", updateUser);
 
 export default router;
+

@@ -13,6 +13,7 @@ import connectDB from "./connectDB.js";
 
 import { nanoid } from "nanoid";
 import jobRouter from "./router/jobRouter.js";
+import authRouter from "./router/authRouter.js";
 import userRouter from "./router/userRouter.js";
 
 // const jobs = [
@@ -42,7 +43,8 @@ app.get("/", (req, res) => {
 // );
 
 app.use("/api/v1/jobs", authenticateUser, jobRouter);
-app.use("/api/v1/auth", userRouter); //api/v1/auth/register & api/v1/auth/login
+app.use("/api/v1/auth", authRouter); //api/v1/auth/register & api/v1/auth/login
+app.use("/api/v1/users", authenticateUser, userRouter);
 
 // //get all jobs
 // app.get("/api/v1/jobs", (req, res) => {
