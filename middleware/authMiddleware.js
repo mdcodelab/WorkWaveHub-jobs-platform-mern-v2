@@ -16,3 +16,15 @@ try {
   res.status(401).json({msg: "authentication invalid"});
 }
 }
+
+export const authorizePermissions = (...roles) => {
+  return (req, res, next) => {
+    //console.log(roles); //["admin"]
+    if (!roles.includes(req.user.role)) {
+      const error= new Error('Unauthorized to access this route');
+      error.status=401;
+      throw error
+    }
+    next();
+  };
+};
