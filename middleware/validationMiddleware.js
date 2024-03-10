@@ -60,11 +60,6 @@ export const validateJobInput = withValidationErrors([
     .withMessage("invalid type value"),
 ]);
 
-// export const validateIdParam = withValidationErrors([
-//   param("id")
-//     .custom((value) => mongoose.Types.ObjectId.isValid(value))
-//     .withMessage("invalid MongoDB id"),
-// ]);
 
 
 export const validateIdParam = withValidationErrors([
@@ -131,4 +126,30 @@ export const validateLoginInput = withValidationErrors([
     .withMessage("invalid email format"),
   body("password").notEmpty().withMessage("password is required"),
 ]);
+
+
+export const validateUpdateUserInput = withValidationErrors([
+  body("name").notEmpty().withMessage("name is required"),
+  body("email")
+    .notEmpty()
+    .withMessage("email is required")
+    .isEmail()
+    .withMessage("invalid email format")
+    .custom(async (email, { req }) => {
+      const user = await User.findOne({ email });
+      if (user && user._id.toString() !== req.user.userId) {
+        throw new Error("email already exists");
+      }
+    }),
+  body("location").notEmpty().withMessage("location is required"),
+  body("lastName").notEmpty().withMessage("last name is required"),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    next();
+  },
+]);
+
 
