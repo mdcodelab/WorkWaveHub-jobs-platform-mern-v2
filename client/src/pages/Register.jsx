@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import Logo from "../components/Logo";
-import FormRow from "../components/FormRow";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 function Register() {
@@ -29,8 +29,15 @@ e.preventDefault();
 try {
   const response = await axios.post("/api/v1/auth/register", formData);
   console.log(response.data);
+  toast.success("Registration successful");
   navigate("/login");
 } catch (error) {
+  toast.error(
+    `Error: ${
+      error.response.data.message || error.response.statusText
+    }`
+  );
+
   console.error(error);
 }
 }
@@ -94,6 +101,7 @@ const Wrapper = styled.div`
     box-shadow: var(--shadow-2);
     border-top: 4px solid var(--primary-500);
     margin: 0 auto;
+    overflow-y: hidden;
   }
 
   .logo {
