@@ -84,6 +84,7 @@ const Wrapper = styled.div`
 
   .form h3 {
     margin: 1rem 0;
+    margin-bottom: 2rem;
     text-align: center;
   }
 
@@ -103,6 +104,31 @@ const Wrapper = styled.div`
   .back-home {
     display: block;
     margin: 0 auto !important;
+  }
+
+  .form__row {
+    width: 98%;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form__row label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .form__row input {
+    padding: 0.2rem 0;
+    border-radius: 0.25rem;
+    border: 1.5px solid grey;
+    outline: none;
+    transition: all 0.3s;
+  }
+
+  .form__row input:focus {
+    border: 3px solid var(--primary-500);
   }
 `;
 
