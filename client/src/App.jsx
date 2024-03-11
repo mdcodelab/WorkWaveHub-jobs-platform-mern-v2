@@ -11,11 +11,10 @@ const router = createBrowserRouter([
     errorElement: <Error></Error>,
     children: [
       { index: true, element: <Landing></Landing> },
-      { path: "register", element: <Register></Register> },
-      { path: "login", element: <Login></Login> },
       {
-        path: "dashboard",
-        element: <Dashboard></Dashboard>,
+  path: 'register', element: <Register /> },
+      { path: "login", element: <Login></Login> },
+      {path: "dashboard",element: <Dashboard></Dashboard>,
         
         children: [
           { index: true, element: <AddJob /> },

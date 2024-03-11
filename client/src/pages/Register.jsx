@@ -1,10 +1,19 @@
-import React from 'react';
-import {Link} from "react-router-dom";
+import React from "react";
+import { Link, redirect, useNavigation, Form } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "../components/Logo";
-import FormRow from '../components/FormRow';
+import FormRow from "../components/FormRow";
+import axios from "axios";
 
 function Register() {
+  const [formData, setFormData] = React.useState({
+    name: "",
+    lastName: "",
+    location: "",
+    email: "",
+    password: "",
+  });
+
   return (
     <Wrapper>
       <form className="form">
@@ -12,16 +21,40 @@ function Register() {
           <Logo></Logo>
         </div>
         <h3>Register</h3>
-        <FormRow type="text" name="name" labelText="Name"></FormRow>
-        <FormRow type="text" name="lastName" labelText="Last Name"></FormRow>
-        <FormRow type="email" name="email" labelText="Email"></FormRow>
-        <FormRow type="password" name="password" labelText="Password"></FormRow>
+        <div className="form__row">
+          <label htmlFor="name">Name</label>
+          <input type="text" name="name" id="name"></input>
+        </div>
+        <div className="form__row">
+          <label htmlFor="lastName">Last Name</label>
+          <input type="text" name="lastName" id="lastName"></input>
+        </div>
+
+        <div className="form__row">
+          <label htmlFor="location">Location</label>
+          <input type="text" name="lastName" id="lastName"></input>
+        </div>
+
+        <div className="form__row">
+          <label htmlFor="email">Email</label>
+          <input type="email" name="email" id="email"></input>
+        </div>
+
+        <div className="form__row">
+          <label htmlFor="password">Password</label>
+          <input type="password" name="password" id="password"></input>
+        </div>
+
         <button type="submit" className="btn btn-block">
           Submit
         </button>
         <div className="check-member">
           <span>Already a member?</span>
-          <Link to="/login" className="member-btn" style={{color: "var(--primary-700"}}>
+          <Link
+            to="/login"
+            className="member-btn"
+            style={{ color: "var(--primary-700" }}
+          >
             Login
           </Link>
         </div>
@@ -31,47 +64,46 @@ function Register() {
 }
 
 const Wrapper = styled.div`
-height: 100vh;
-width: 100%;
+  height: 100vh;
+  width: 100%;
 
-.form {
+  .form {
     width: 300px;
     height: 100%;
     box-shadow: var(--shadow-2);
     border-top: 4px solid var(--primary-500);
     margin: 0 auto;
-}
+  }
 
-.logo {
+  .logo {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-}
+  }
 
-.form h3 {
+  .form h3 {
     margin: 1rem 0;
     text-align: center;
-}
+  }
 
-.check-member {
+  .check-member {
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: center;
     margin: 1.5rem 0;
-}
+  }
 
-.member-btn {
+  .member-btn {
     display: block;
     margin-left: 1rem;
-}
+  }
 
-.back-home {
+  .back-home {
     display: block;
     margin: 0 auto !important;
-}
+  }
 `;
 
 export default Register;
-
