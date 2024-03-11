@@ -3,6 +3,7 @@ dotenv.config();
 import express from "express";
 const app = express();
 import {body, validationResult} from "express-validator";
+import cors from "cors";
 import morgan from "morgan";
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
@@ -21,6 +22,7 @@ import userRouter from "./router/userRouter.js";
 //     {id: nanoid(), company: "microsoft", position: "back-end"}
 // ]
 
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 
