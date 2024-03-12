@@ -23,23 +23,24 @@ function Register() {
   }
 
   const navigate=useNavigate();
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
 async function handleSubmit(e) {
-e.preventDefault();
-try {
-  const response = await axios.post("/api/v1/auth/register", formData);
-  console.log(response.data);
-  toast.success("Registration successful");
-  navigate("/login");
-} catch (error) {
-  toast.error(
-    `Error: ${
-      error.response.data.message || error.response.statusText
-    }`
-  );
-
-  console.error(error);
-}
+  e.preventDefault();
+  setIsSubmitting(true);
+  try {
+    const response = await axios.post("/api/v1/auth/register", formData);
+    console.log(response.data);
+    toast.success("Registration successful");
+    navigate("/login");
+  } catch (error) {
+    toast.error(
+      `Error: ${error.response.data.message || error.response.statusText}`
+    );
+    console.error(error);
+  } finally {
+    setIsSubmitting(false);
+  }
 }
 
   return (
@@ -73,8 +74,8 @@ try {
           <input type="password" name="password" id="password" value={formData.password} onChange={handleChange} required></input>
         </div>
 
-        <button type="submit" className="btn btn-block">
-          Submit
+        <button type="submit" className="btn btn-block" disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Submit"}
         </button>
         <div className="check-member">
           <span>Already a member?</span>
