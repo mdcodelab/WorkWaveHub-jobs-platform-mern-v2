@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import styled from "styled-components";
-import FormRow from '../components/FormRow';
 import Logo from '../components/Logo';
 
 function Login() {
@@ -12,8 +11,16 @@ function Login() {
           <Logo></Logo>
         </div>
         <h3>Login</h3>
-        <FormRow type="email" name="email" labelText="email"></FormRow>
-        <FormRow type="password" name="password" labelText="password"></FormRow>
+        <div className="form-row">
+          <label htmlFor="email">Email</label>
+          <input type="email" name="email" id="email" required></input>
+        </div>
+
+        <div className="form-row">
+          <label htmlFor="password">Password</label>
+          <input type="password" name="password" id="password" required></input>
+        </div>
+
         <button type="submit" className="btn btn-block">
           Submit
         </button>
@@ -22,13 +29,18 @@ function Login() {
         </button>
         <div className="check-member">
           <span>Not a member?</span>
-          <Link to="/register" className="member-btn" style={{color: "var(--primary-700"}}>
+          <Link
+            to="/register"
+            className="member-btn"
+            style={{ color: "var(--primary-700" }}
+          >
             Register
           </Link>
         </div>
-        <Link to="/" className="back-home">Back Home</Link>
+        <Link to="/" className="back-home">
+          Back Home
+        </Link>
       </form>
-
     </Wrapper>
   );
 }
@@ -74,12 +86,8 @@ const Wrapper = styled.div`
 
   .back-home {
     display: block;
-    margin: 0 auto !important;
-  }
-
-  .back-home {
-    display: block;
     margin: 0 auto;
+    text-align: center;
   }
 
   .explore {
@@ -89,9 +97,33 @@ const Wrapper = styled.div`
   .explore a {
     color: #fff;
   }
-  .back-home {
+
+  .form-row {
+    width: 98%;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-row label {
     display: block;
-    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-row input {
+    width: 100%;
+    padding: 0.2rem 0;
+    border-radius: 0.25rem;
+    border: 1.5px solid grey;
+    outline: none;
+    background: transparent;
+    color: grey;
+    transition: all 0.3s;
+  }
+
+  .form-row input:focus {
+    border: 3px solid var(--primary-500);
   }
 `;
 
