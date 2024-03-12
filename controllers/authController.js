@@ -44,9 +44,10 @@ export const login = async (req, res) => {
     }
 
     // Comparam parola trimisă cu parola hash stocată în baza de date
-    if (password !== user.password) {
-      return res.status(401).json({ msg: "Wrong password" });
-    }
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+  if (!isPasswordValid) {
+    return res.status(401).json({ msg: "Wrong password" });
+  }
 
     const token=createJWT({userId: user._id, role: user.role});
 
@@ -59,6 +60,7 @@ export const login = async (req, res) => {
     res.status(StatusCodes.OK).json({ msg: "User logged in" });
   
 };
+
 
 
 export const logout = (req, res) => {

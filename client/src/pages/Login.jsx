@@ -1,28 +1,65 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import Logo from '../components/Logo';
+import { toast } from "react-toastify";
+import axios from "axios";
+
 
 function Login() {
+  const[formData, setFormData]=React.useState({
+    email: "",
+    password: ""
+  });
+
+ 
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState, [name]: value,
+    }));
+  }
+const navigate=useNavigate();
+  const[isSubmitting, setIsSubmitting]=React.useState(false);
+
+async function handleSubmit(e) {
+e.preventDefault();
+setIsSubmitting(true);
+try {
+  const response = await axios.post("/api/v1/auth/login", formData);
+  console.log(response.data);
+  toast.success("Registration successful");
+  navigate("/dashboard");
+} catch (error) {
+  toast.error(`Error: ${error.response.data.message || error.response.statusText}`);
+  console.error(error);
+}
+finally {
+setIsSubmitting(false);
+}
+}
+
   return (
     <Wrapper>
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <div className="logo">
           <Logo></Logo>
         </div>
         <h3>Login</h3>
         <div className="form-row">
           <label htmlFor="email">Email</label>
-          <input type="email" name="email" id="email" required></input>
+          <input type="email" name="email" id="email" value={formData.email} 
+          onChange={handleChange} required></input>
         </div>
 
         <div className="form-row">
           <label htmlFor="password">Password</label>
-          <input type="password" name="password" id="password" required></input>
+          <input type="password" name="password" id="password" value={formData.password}
+          onChange={handleChange} required></input>
         </div>
 
-        <button type="submit" className="btn btn-block">
-          Submit
+        <button type="submit" className="btn btn-block" disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Submit"}
         </button>
         <button type="button" className="btn btn-block explore">
           <Link to="/dashboard">Explore the app</Link>

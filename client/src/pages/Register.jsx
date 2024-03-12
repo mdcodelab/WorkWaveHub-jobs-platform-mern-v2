@@ -34,9 +34,7 @@ async function handleSubmit(e) {
     toast.success("Registration successful");
     navigate("/login");
   } catch (error) {
-    toast.error(
-      `Error: ${error.response.data.message || error.response.statusText}`
-    );
+    toast.error(`Error: ${error.response.data.message || error.response.statusText}`);
     console.error(error);
   } finally {
     setIsSubmitting(false);
