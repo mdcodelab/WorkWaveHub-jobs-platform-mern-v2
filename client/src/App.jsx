@@ -16,6 +16,7 @@ import {
   Admin,
 } from "./pages";
 import { action as registerAction } from "./pages/Register";
+import {action as loginAction} from "./pages/Login";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
         element: <Register />,
         action: registerAction,
       },
-      { path: "login", element: <Login></Login> },
+      { path: "login", element: <Login></Login>, action: loginAction },
       {
         path: "dashboard",
         element: <Dashboard></Dashboard>,
