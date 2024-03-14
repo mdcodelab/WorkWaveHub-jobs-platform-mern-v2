@@ -1,8 +1,21 @@
-import React from 'react';
+import React from "react";
 //import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import {RouterProvider, createBrowserRouter } from "react-router-dom";
-import {AddJob, AllJobs, Dashboard, EditJob, Error, HomeLayout, 
-  Landing, Login, Profile, Register, Stats, Admin} from "./pages"
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  AddJob,
+  AllJobs,
+  Dashboard,
+  EditJob,
+  Error,
+  HomeLayout,
+  Landing,
+  Login,
+  Profile,
+  Register,
+  Stats,
+  Admin,
+} from "./pages";
+import { action as registerAction } from "./pages/Register";
 
 const router = createBrowserRouter([
   {
@@ -12,16 +25,21 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Landing></Landing> },
       {
-  path: 'register', element: <Register /> },
+        path: "register",
+        element: <Register />,
+        action: registerAction,
+      },
       { path: "login", element: <Login></Login> },
-      {path: "dashboard",element: <Dashboard></Dashboard>,
-        
+      {
+        path: "dashboard",
+        element: <Dashboard></Dashboard>,
+
         children: [
           { index: true, element: <AddJob /> },
           { path: "stats", element: <Stats></Stats> },
           { path: "all-jobs", element: <AllJobs></AllJobs> },
           { path: "profile", element: <Profile></Profile> },
-          { path: "admin", element: <Admin></Admin>}
+          { path: "admin", element: <Admin></Admin> },
         ],
       },
     ],
@@ -36,12 +54,8 @@ export const checkDefaultTheme = () => {
 
 checkDefaultTheme();
 
-
 function App() {
-  return (
-    <RouterProvider router={router}>
-    </RouterProvider>
-  );
+  return <RouterProvider router={router}></RouterProvider>;
 }
 
 export default App;
