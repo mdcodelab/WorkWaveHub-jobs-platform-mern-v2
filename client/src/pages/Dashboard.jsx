@@ -11,14 +11,21 @@ import axios from "axios";
 import { useState, createContext, useContext } from "react";
 const DashboardContext = createContext();
 
-export const loader= () => {
-  return "hello world"
+export const loader = async () => {
+  
+  try {
+    const response = await axios.get("/api/v1/users/current-user");
+    const {user}=response.data
+    return user
+  } catch (error) {
+    return redirect("/");
+  }
 }
 
 const Dashboard = () => {
-  const data=useLoaderData();
-  console.log(data);
-const user={name: "john"};
+  const user=useLoaderData();
+console.log(user.name);
+  //const user={name: "john"}
   const [showSidebar, setShowSidebar] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
@@ -57,7 +64,7 @@ const user={name: "john"};
           <div>
             <Navbar />
             <div className="dashboard-page">
-              <Outlet />
+              <Outlet context={{user}}/>
             </div>
           </div>
         </main>

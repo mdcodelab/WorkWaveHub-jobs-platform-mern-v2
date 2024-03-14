@@ -6,7 +6,7 @@ import { useDashboardContext } from "../pages/Dashboard";
 const LogoutContainer = () => {
   const [showLogout, setShowLogout] = React.useState(false);
   const { user, logoutUser } = useDashboardContext();
-  console.log(user);
+  
 
   return (
     <Wrapper>
@@ -21,7 +21,7 @@ const LogoutContainer = () => {
           <FaUserCircle />
         )}
 
-        {user && user.name ? user.name : "Loading..."}
+        {user?.name}
         <FaCaretDown />
       </button>
       <div className={showLogout ? "dropdown show-dropdown" : "dropdown"}>
