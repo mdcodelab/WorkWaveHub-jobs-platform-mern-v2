@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, redirect, useLoaderData } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import BigSidebar from "../components/BigSidebar";
 import SmallSidebar from "../components/SmallSidebar";
@@ -11,10 +11,14 @@ import axios from "axios";
 import { useState, createContext, useContext } from "react";
 const DashboardContext = createContext();
 
-
+export const loader= () => {
+  return "hello world"
+}
 
 const Dashboard = () => {
-
+  const data=useLoaderData();
+  console.log(data);
+const user={name: "john"};
   const [showSidebar, setShowSidebar] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
@@ -34,42 +38,6 @@ const Dashboard = () => {
     console.log("logout user");
   };
 
-  //get currentUser
-  const [user, setUser]=React.useState({});
-  const [loading, setLoading] = React.useState(true); 
-
-  const navigate = useNavigate();
-  // const getCurrentUser = async () => {
-  //   try {
-  //     const response = await axios.get("/api/v1/users/current-user");
-  //     console.log(response.data);
-  //     setUser(response.data);
-  //   } catch (error) {
-  //     navigate("/");
-  //     console.error(error);
-  //   }
-  // };
-
-  React.useEffect(() => {
-    const getCurrentUser = async () => {
-      try {
-        const response = await axios.get("/api/v1/users/current-user");
-        console.log(response.data);
-        setUser(response.data);
-        navigate("/dashboard");
-      } catch (error) {
-        navigate("/");
-        console.error(error);
-      } 
-      finally {
-        setLoading(false);
-      }
-    };
-
-    getCurrentUser();
-  }, []);
-
-console.log(user);
 
   return (
     <DashboardContext.Provider
