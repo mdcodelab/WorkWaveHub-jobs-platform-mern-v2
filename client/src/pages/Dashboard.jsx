@@ -1,11 +1,11 @@
 
 import React from "react";
-import { Outlet, redirect, useLoaderData } from "react-router-dom";
+import { Outlet, redirect, useLoaderData, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import BigSidebar from "../components/BigSidebar";
 import SmallSidebar from "../components/SmallSidebar";
 import styled from "styled-components";
-import {useNavigate} from "react-router-dom";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 import { useState, createContext, useContext } from "react";
@@ -41,8 +41,11 @@ console.log(user.name);
     setShowSidebar(!showSidebar);
   };
 
+  const navigate=useNavigate();
   const logoutUser = async () => {
-    console.log("logout user");
+    navigate("/");
+    await axios.get("/api/v1/auth/logout");
+    toast.success("Logging out...")
   };
 
 

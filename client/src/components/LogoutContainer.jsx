@@ -21,12 +21,12 @@ const LogoutContainer = () => {
           <FaUserCircle />
         )}
 
-        {user?.name}
+        {user?.name ? user.name : "user"}
         <FaCaretDown />
       </button>
-      <div className={showLogout ? "dropdown show-dropdown" : "dropdown"}>
-        <button type="button" className="dropdown-btn" onClick={logoutUser}>
-          logout
+      <div className={showLogout ? "btn dropdown show-dropdown" : "btn dropdown"}>
+        <button type="button" onClick={logoutUser}>
+          Logout
         </button>
       </div>
     </Wrapper>
@@ -57,6 +57,8 @@ const Wrapper = styled.div`
     visibility: hidden;
     border-radius: var(--border-radius);
     background: var(--primary-500);
+    color: #fff;
+    letter-spacing: 0.2rem;
   }
   .show-dropdown {
     visibility: visible;
