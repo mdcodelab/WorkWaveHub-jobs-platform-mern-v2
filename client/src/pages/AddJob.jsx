@@ -5,7 +5,24 @@ import { JOB_STATUS, JOB_TYPE } from "../../../utils/constants";
 import { Form, useNavigation, redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import styled from "styled-components";
+import axios from "axios";
 import FormRowSelect from '../components/FormRowSelect';
+
+
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  try {
+    await axios.post("/api/v1/jobs", data);
+    toast.success("Job created successfully!");
+    return redirect("all-jobs");
+  } catch (error) {
+    toast.error(`Error: ${error.response.data.message || error.response.statusText}`);
+    return error;
+  }
+};
+
 
 function AddJob() {
   const {user}=useOutletContext();
@@ -13,7 +30,7 @@ function AddJob() {
   const isSubmitting = navigation.state === "submitting";
   return (
     <Wrapper>
-      <form method="post" className="post">
+      <Form method="post" className="post">
         <h4 className="form-title">Add job</h4>
         <div className="form-center">
           <FormRow type="text" name="position"></FormRow>
@@ -28,7 +45,7 @@ function AddJob() {
            <FormRowSelect labelFor="jobType" name="jobType" 
           defaultValue={JOB_TYPE.FULL_TIME} list={Object.values(JOB_TYPE)}></FormRowSelect>
         </div>
-      </form>
+      </Form>
     </Wrapper>
   );
 }
