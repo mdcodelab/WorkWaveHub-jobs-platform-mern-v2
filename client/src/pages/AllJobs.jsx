@@ -10,23 +10,30 @@ export const loader = async () => {
     const {data} = await axios.get("/api/v1/jobs");
     return {data};
   } catch (error) {
-    toast.error("Error")
+    toast.error(
+      `Error: ${error.response.data.message || error.response.statusText}`);
     return error;
   }
 }
 
+const AllJobsContext=React.createContext();
 
 function AllJobs() {
   const {data}=useLoaderData();
   console.log({data});
 
   return (
-    <div>
-      <h1>All Jobs</h1>
+    <AllJobsContext.Provider value={{data}}>
       <SearchContainer></SearchContainer>
       <JobsContainer></JobsContainer>
-    </div>
+    </AllJobsContext.Provider>
   );
 }
 
+export const useAllJobsContext = () => {
+  return React.useContext(AllJobsContext);
+}
+
 export default AllJobs;
+
+
