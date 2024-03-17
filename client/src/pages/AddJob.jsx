@@ -5,6 +5,7 @@ import { JOB_STATUS, JOB_TYPE } from "../../../utils/constants";
 import { Form, useNavigation, redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import styled from "styled-components";
+import FormRowSelect from '../components/FormRowSelect';
 
 function AddJob() {
   const {user}=useOutletContext();
@@ -22,6 +23,10 @@ function AddJob() {
           <button type="submit" className="btn btn-block form-btn" disabled={isSubmitting}>
             {isSubmitting ? "Submitting..." : "Submit"}
           </button>
+          <FormRowSelect labelFor="jobStatus" name="jobStatus" 
+          defaultValue={JOB_STATUS.PENDING} list={Object.values(JOB_STATUS)}></FormRowSelect>
+           <FormRowSelect labelFor="jobType" name="jobType" 
+          defaultValue={JOB_TYPE.FULL_TIME} list={Object.values(JOB_TYPE)}></FormRowSelect>
         </div>
       </form>
     </Wrapper>
@@ -72,3 +77,5 @@ const Wrapper = styled.section`
 `;
 
 export default AddJob;
+
+
