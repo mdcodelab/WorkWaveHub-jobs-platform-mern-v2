@@ -13,8 +13,8 @@ function JobsContainer() {
 
   return (
     <Wrapper className="jobs">
-      {jobs.map((job)=> {
-        return <Job key={job.id} {...job}></Job>
+      {jobs.map((job, index)=> {
+        return <Job key={index} {...job}></Job>
       })}
     </Wrapper>
   );
