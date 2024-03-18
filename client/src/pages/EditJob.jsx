@@ -22,8 +22,17 @@ export const loader = async ({params}) => {
 }
 
 //adit job - patch request
-export const action = async () => {
-  return null;
+export const action = async ({request, params}) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  try {
+    const response = await axios.patch(`/api/v1/jobs/${params.id}`, data);
+    toast.success("Job edited successfully.");
+    return redirect("/dashboard/all-jobs");
+  } catch (error) {
+    toast.error("It is an error");
+    return error;
+  }
 };
 
 function EditJob() {
