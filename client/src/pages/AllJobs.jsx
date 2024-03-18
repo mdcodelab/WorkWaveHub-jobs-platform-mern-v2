@@ -20,7 +20,7 @@ const AllJobsContext=React.createContext();
 
 function AllJobs() {
   const {data}=useLoaderData();
-  console.log({data});
+  //console.log({data});
 
   return (
     <AllJobsContext.Provider value={{data}}>
