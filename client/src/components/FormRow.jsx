@@ -1,10 +1,10 @@
 import React from 'react';
 
-function FormRow({type, name, labelText}) {
+function FormRow({type, name, labelText, defaultValue}) {
   return (
     <div className="form-row">
       <label htmlFor="name" className="form-label">{labelText || name}</label>
-      <input type={type} name={name} id={name} className="form-input" required></input>
+      <input type={type} name={name} id={name} className="form-input" defaultValue={defaultValue} required></input>
     </div>
   );
 }
