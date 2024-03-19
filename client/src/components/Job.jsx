@@ -28,7 +28,7 @@ function Job({_id, position, company, jobLocation, jobType, createdAt, jobStatus
         </div>
         <footer className="actions">
             <Link to={`/dashboard/edit-job/${_id}`} className="btn edit-btn">Edit</Link>
-            <Form>
+            <Form method="post" action={`../delete-job/${_id}`}>
                 <button type="submit" className="btn delete-btn">Delete</button>
             </Form>
         </footer>
