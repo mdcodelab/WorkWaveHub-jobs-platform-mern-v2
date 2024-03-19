@@ -14,3 +14,5 @@ export { default as Admin } from "./Admin";
 export { default as BigSidebar } from "../components/BigSidebar";
 export { default as SmallSidebar } from "../components/SmallSidebar";
 export { default as Navbar } from "../components/Navbar";
+
+export {default as StatItem} from "../components/StatItem";
