@@ -22,9 +22,9 @@ function Admin() {
   
   return (
     <>
-      <h3 style={{marginBottom: "2rem"}}>Admin PAge</h3>
+      <h3 style={{marginBottom: "2rem"}}>Admin Page</h3>
       <Wrapper>
-        <StatItem title="current users" count={users} color="#e9b949" 
+        <StatItem title="current users" count={users} color='#e9b949' 
       background="#fcefc7" icon={<FaSuitcaseRolling></FaSuitcaseRolling>}></StatItem>
       <StatItem title="total jobs" count={jobs} color="#647acb" 
       background="#e0e8f9" icon={<FaCalendarCheck></FaCalendarCheck>}></StatItem>

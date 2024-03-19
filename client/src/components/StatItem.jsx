@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from "styled-components"
 
-function StatItem({count, title, icon, background}) {
+function StatItem({count, title, icon, color, background}) {
   return (
-    <Wrapper count={count} title={title} icon={icon} background={background}>
+    <Wrapper color={color} background={background}>
       <header>
         <span className="count">{count}</span>
         <span className="icon">{icon}</span>
@@ -42,7 +42,7 @@ const Wrapper = styled.article`
   .icon {
     width: 70px;
     height: 60px;
-    background: ${(props) => props.bcg};
+    background: ${(props) => props.background};
     border-radius: var(--border-radius);
     display: flex;
     align-items: center;
