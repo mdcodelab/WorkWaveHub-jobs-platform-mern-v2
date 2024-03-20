@@ -19,7 +19,7 @@ export const action = async ({request}) => {
     toast.success("Profile updated successfully.")
 
   } catch (error) {
-    toast.error("It was an error")
+    toast.error(error?.response?.data?.msg);
   }
   return null; //al current user we have the new values; we have the defaultVAlues
 }
