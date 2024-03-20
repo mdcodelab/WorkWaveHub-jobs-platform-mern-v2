@@ -12,7 +12,6 @@ import { useState, createContext, useContext } from "react";
 const DashboardContext = createContext();
 
 export const loader = async () => {
-  
   try {
     const response = await axios.get("/api/v1/users/current-user");
     const {user}=response.data

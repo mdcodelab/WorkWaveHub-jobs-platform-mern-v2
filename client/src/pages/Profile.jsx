@@ -2,8 +2,27 @@ import React from 'react';
 import FormRow from '../components/FormRow';
 import { useOutletContext } from 'react-router-dom';
 import { useNavigation, Form } from 'react-router-dom';
+import axios from "axios";
 import { toast } from 'react-toastify';
 import styled from "styled-components";
+
+export const action = async ({request}) => {
+  const formData = await request.formData();
+  const file = formData.get("avatar");
+  if(file && file.size > 500000) {
+    toast.error("Image size is too large");
+    return null;
+  }
+
+  try {
+    const response = await axios.patch("/api/v1/users/update-user", formData);
+    toast.success("Profile updated successfully.")
+
+  } catch (error) {
+    toast.error("It was an error")
+  }
+  return null; //al current user we have the new values; we have the defaultVAlues
+}
 
 
 function Profile() {
