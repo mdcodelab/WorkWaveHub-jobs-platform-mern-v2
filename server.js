@@ -4,7 +4,7 @@ import express from "express";
 const app = express();
 import {body, validationResult} from "express-validator";
 import cors from "cors";
-import { v2 as cloudinary } from "cloudinary";
+import cloudinary from "cloudinary";
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
