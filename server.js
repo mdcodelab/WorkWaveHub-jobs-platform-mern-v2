@@ -4,6 +4,13 @@ import express from "express";
 const app = express();
 import {body, validationResult} from "express-validator";
 import cors from "cors";
+import { v2 as cloudinary } from "cloudinary";
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
 import morgan from "morgan";
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
