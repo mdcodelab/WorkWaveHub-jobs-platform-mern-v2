@@ -16,11 +16,11 @@ export const action = async ({request}) => {
         toast.success("Registration successful");
         return redirect("/login");
     } catch (error) {
-        toast.error(`Error: ${error.response.data.message || error.response.statusText}`);
+        //toast.error(`Error: ${error.response.data.message || error.response.statusText}`);
+        toast.error(error?.response?.data?.msg);
       console.log(error);
       return error  
     }
-    return null;
 }
 
 function Register() {

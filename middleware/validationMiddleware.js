@@ -30,17 +30,17 @@ const withValidationErrors = (validateValues) => {
         const firstMessage = errorMessages[0];
         console.log(Object.getPrototypeOf(firstMessage));
         if (errorMessages[0].startsWith("no job")) {
-          const error = new Error(errorMessages);
-          error.status(404);
-          throw error;
+          const error = new Error (errorMessages);
+          error.status=404;
+          throw error
         }
         if (errorMessages[0].startsWith("not authorized")) {
-          const error = new Error ("not authorized to access this route");
+          const error = new Error("not authorized to access this route");
           error.status=401;
-          throw error;
+          throw error
         }
-        const error = new Error(errorMessages);
-        error.status = 400;
+        const error = new Error (errorMessages);
+        error.status=400;
         throw error;
       }
       next();
@@ -60,44 +60,41 @@ export const validateJobInput = withValidationErrors([
     .withMessage("invalid type value"),
 ]);
 
-
-
 export const validateIdParam = withValidationErrors([
-  param("id").custom(async (value, {req}) => {
-    const isValidId = mongoose.Types.ObjectId.isValid(value);
-    if (!isValidId) {
-      const error = new Error("invalid MongoDB id");
-      error.status = 400;
+  param("id").custom(async (value, { req }) => {
+    const isValidMongoId = mongoose.Types.ObjectId.isValid(value);
+    if (!isValidMongoId) {
+      const error = new Error ("invalid MongoDB id");
+      error.status=404;
       throw error;
-    }
+    } 
     const job = await Job.findById(value);
     if (!job) {
-      const error = new Error(`no job with id : ${value}`);
-      error.status = 404;
-      throw error;
+      const error= new Error (`no job with id ${value}`);
+      error.status=404;
     }
     const isAdmin = req.user.role === "admin";
     const isOwner = req.user.userId === job.createdBy.toString();
-    if(!isAdmin && !isOwner) {
-      const error = new Error ("Not authorize to access this route.");
-      error.status(401);
-      throw error;
+
+    if (!isAdmin && !isOwner) {
+      const error = new Error ("not authorized to access this route");
+      error.status=401;
     }
   }),
 ]);
 
-
-export const validateRegisterInput = [
+export const validateRegisterInput = withValidationErrors([
   body("name").notEmpty().withMessage("name is required"),
   body("email")
     .notEmpty()
     .withMessage("email is required")
     .isEmail()
     .withMessage("invalid email format")
-    .custom(async (email, { req }) => {
-      const existingUser = await User.findOne({ email });
-      if (existingUser) {
-        throw new Error("email already exists");
+    .custom(async (email) => {
+      const user = await User.findOne({ email });
+      if (user) {
+        const error = new Error ("email already exists");
+        error.status=401;
       }
     }),
   body("password")
@@ -107,16 +104,7 @@ export const validateRegisterInput = [
     .withMessage("password must be at least 8 characters long"),
   body("location").notEmpty().withMessage("location is required"),
   body("lastName").notEmpty().withMessage("last name is required"),
-  (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    next();
-  },
-];
-
-import bcrypt from "bcrypt";
+]);
 
 export const validateLoginInput = withValidationErrors([
   body("email")
@@ -126,7 +114,6 @@ export const validateLoginInput = withValidationErrors([
     .withMessage("invalid email format"),
   body("password").notEmpty().withMessage("password is required"),
 ]);
-
 
 export const validateUpdateUserInput = withValidationErrors([
   body("name").notEmpty().withMessage("name is required"),
@@ -138,20 +125,12 @@ export const validateUpdateUserInput = withValidationErrors([
     .custom(async (email, { req }) => {
       const user = await User.findOne({ email });
       if (user && user._id.toString() !== req.user.userId) {
-        throw new Error("email already exists");
+        const error = new Error ("email already exists");
+        error.status=404;
+        throw error;
       }
     }),
+
   body("location").notEmpty().withMessage("location is required"),
   body("lastName").notEmpty().withMessage("last name is required"),
-  (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    next();
-  },
 ]);
-
-
-
-

@@ -32,6 +32,6 @@ export const updateUser = async (req, res) => {
   if (req.file && updatedUser.avatarPublicId) {
     await cloudinary.v2.uploader.destroy(updatedUser.avatarPublicId);
   }
-  
+  console.log(updatedUser);
   res.status(StatusCodes.OK).json({ msg: "update user" });
 };

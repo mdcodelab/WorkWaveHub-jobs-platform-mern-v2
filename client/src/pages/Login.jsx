@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Logo from "../components/Logo";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 export const action = async ({request}) => {
   const formData = await request.formData();
@@ -14,8 +15,9 @@ export const action = async ({request}) => {
     toast.success("Login successful");
     return redirect("/dashboard");
   } catch (error) {
-    toast.error(
-      `Error: ${error.response.data.message || error.response.statusText}`);
+    // toast.error(
+    //   `Error: ${error.response.data.message || error.response.statusText}`);
+    toast.error(error?.response?.data?.msg);
     return error;
   }
 }
@@ -23,7 +25,23 @@ export const action = async ({request}) => {
 function Login() {
   const navigation=useNavigation();
   const isSubmitting = navigation.state === "submitting";
-  console.log(isSubmitting);
+  
+  const navigate=useNavigate();
+
+  const loginDemoUser = async () => {
+    const data = {
+      email: "test@gmail.com",
+      password: "secret123"
+    }
+    try {
+      await axios.post("/api/v1/auth/login", data);
+      toast.success("Take a test drive!");
+      return navigate("/dashboard");
+    } catch (error) {
+      toast.error(error?.response?.data?.msg);
+      return error;
+    }
+  }
 
   return (
     <Wrapper>
@@ -35,8 +53,8 @@ function Login() {
         <button type="submit" className="btn btn-block" disabled={isSubmitting}>
           {isSubmitting ? "Submitting..." : "Submit"}
         </button>
-        <button type="button" className="btn btn-block explore">
-          <Link to="/dashboard">Explore the app</Link>
+        <button type="submit" className="btn btn-block explore" onClick={loginDemoUser}>
+            Explore the app
         </button>
         <div className="check-member">
           <span>Not a member?</span>
