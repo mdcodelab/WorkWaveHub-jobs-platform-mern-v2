@@ -122,10 +122,22 @@ export const deleteJob = async (req, res) => {
 
 
 export const showStats = async (req, res) => {
+  let stats = await Job.aggregate([
+    { $match: { createdBy: new mongoose.Types.ObjectId(req.user.userId) } },//userId as object
+    { $group: { _id: "$jobStatus", count: { $sum: 1 } } },
+  ]);
+  console.log(stats); //array of 3 objects
+  stats = stats.reduce((acc, curr) => {
+    const { _id: title, count } = curr;
+    acc[title] = count;
+    return acc;
+  }, {});
+  console.log(stats); //object 3 elements
+
   const defaultStats = {
-    pending: 22,
-    interview: 11,
-    declined: 4
+    pending: stats.pending || 0,
+    interview: stats.interview || 0,
+    declined: stats.declined || 0
   }
   const monthlyApplications = [
     {
@@ -141,6 +153,6 @@ export const showStats = async (req, res) => {
       count: 9,
     },
   ];
-res.status(StatusCodes.OK).json({defaultStats, monthlyApplications})
+res.status(StatusCodes.OK).json({stats})
 }
 
