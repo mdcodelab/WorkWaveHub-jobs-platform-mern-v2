@@ -15,9 +15,9 @@ export const action = async ({request}) => {
     toast.success("Login successful");
     return redirect("/dashboard");
   } catch (error) {
-    // toast.error(
-    //   `Error: ${error.response.data.message || error.response.statusText}`);
-    toast.error(error?.response?.data?.msg);
+    toast.error(
+    `Error: ${error.response.data.message || error.response.statusText}`);
+    //toast.error(error?.response?.data?.msg);
     return error;
   }
 }
