@@ -30,7 +30,8 @@ export const action = async ({request, params}) => {
     toast.success("Job edited successfully.");
     return redirect("/dashboard/all-jobs");
   } catch (error) {
-    toast.error("It is an error");
+    //toast.error("It is an error");
+    toast.error(error?.response?.data?.msg);
     return error;
   }
 };

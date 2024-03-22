@@ -9,7 +9,7 @@ day.extend(advancedFormat);
 
 function Job({_id, position, company, jobLocation, jobType, createdAt, jobStatus}) {
     const date=day(createdAt).format("MMM Do, YYY");
-    console.log(date);
+    //console.log(date);
   return (
     <Wrapper>
       <header>

@@ -8,7 +8,8 @@ export const action = async ({params}) => {
     await axios.delete(`/api/v1/jobs/${params.id}`);
     return toast.success("Job deleted successfully!");
   } catch (error) {
-    toast.error("It was an error.")
+    //toast.error("It was an error.")
+    toast.error(error?.response?.data?.msg);
     return redirect("/dashboard/all-jobs")
   }
 }

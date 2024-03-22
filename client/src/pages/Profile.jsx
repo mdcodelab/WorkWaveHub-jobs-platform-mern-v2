@@ -32,7 +32,7 @@ const Profile = () => {
   return (
     <div>
       <Form method="post" className="form" encType="multipart/form-data">
-        <h4 className="form-title">profile</h4>
+        <h4 className="form-title" style={{textAlign: "center", marginBottom: "2rem"}}>profile</h4>
         <div className="form-center">
           <div className="form-row">
             <label htmlFor="avatar" className="form-label">

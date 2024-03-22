@@ -59,6 +59,7 @@ const Wrapper = styled.div`
     background: var(--primary-500);
     color: #fff;
     letter-spacing: 0.2rem;
+    cursor: pointer;
   }
   .show-dropdown {
     visibility: visible;
@@ -74,6 +75,7 @@ const Wrapper = styled.div`
     cursor: pointer;
     width: 100%;
     height: 100%;
+    cursor: pointer;
   }
 `;
 
