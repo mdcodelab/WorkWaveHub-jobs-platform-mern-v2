@@ -171,6 +171,6 @@ export const showStats = async (req, res) => {
   //     count: 9,
   //   },
   // ];
-res.status(StatusCodes.OK).json({monthlyApplication})
+res.status(StatusCodes.OK).json({defaultStats, monthlyApplication})
 }
 

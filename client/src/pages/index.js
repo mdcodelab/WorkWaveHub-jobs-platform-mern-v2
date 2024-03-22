@@ -16,3 +16,10 @@ export { default as SmallSidebar } from "../components/SmallSidebar";
 export { default as Navbar } from "../components/Navbar";
 
 export {default as StatItem} from "../components/StatItem";
+
+export { default as StatsContainer } from "../components/StatsContainer";
+export { default as ChartContainer } from "../components/ChartContainer";
+export { default as AreaChart } from "../components/AreaChart";
+export { default as BarChart } from "../components/BarChart";
+
+
