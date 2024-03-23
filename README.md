@@ -5488,6 +5488,8 @@ import {
 } from 'recharts';
 
 const AreaChartComponent = ({ data }) => {
+  console.log(data);
+  
   return (
     <ResponsiveContainer width='100%' height={300}>
       <AreaChart data={data} margin={{ top: 50 }}>
