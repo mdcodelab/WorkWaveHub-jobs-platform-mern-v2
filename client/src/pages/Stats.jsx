@@ -19,9 +19,7 @@ function Stats() {
   return (
     <>
       <StatsContainer defaultStats={defaultStats}></StatsContainer>
-      {monthlyApplications?.length > 0 && (
-        <ChartContainer data={monthlyApplications} />
-      )}
+      <ChartContainer data={monthlyApplications}></ChartContainer>
     </>
   );
 }
