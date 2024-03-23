@@ -14,7 +14,29 @@ import dayjs from "dayjs";
 // }
 
 export const getAllJobs = async (req, res) => {
-  const jobs = await Job.find({ createdBy: req.user.userId});
+  const {search, jobStatus, jobType}=req.query;
+  let queryObject={
+    createdBy: req.user.userId
+  }
+  
+  if (search) {
+    queryObject.$or = [
+      { position: { $regex: search, $options: 'i' } },
+      { company: { $regex: search, $options: 'i' } },
+    ];
+  }
+
+  if(jobStatus && jobStatus !== "all") {
+    queryObject.jobStatus = jobStatus;
+  }
+
+  if (jobType && jobType !== "all") {
+    queryObject.jobType = jobType;
+  }
+
+  console.log(req.query);
+  //console.log(search);
+  const jobs = await Job.find(queryObject);
   res.status(StatusCodes.OK).json({ jobs });
 };
 
