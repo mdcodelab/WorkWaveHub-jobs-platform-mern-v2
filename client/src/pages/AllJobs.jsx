@@ -5,9 +5,15 @@ import { useLoaderData } from 'react-router-dom';
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export const loader = async () => {
+  export const loader = async ({request}) => {
+    console.log(request.url);
+    const params = Object.fromEntries([
+      ...new URL(request.url).searchParams.entries()]);
+      console.log(params);
   try {
-    const {data} = await axios.get("/api/v1/jobs");
+    const {data} = await axios.get("/api/v1/jobs", {
+      params
+    });
     return {data};
   } catch (error) {
     toast.error(
