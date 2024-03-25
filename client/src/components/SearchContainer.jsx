@@ -19,19 +19,19 @@ function SearchContainer() {
       <Form className="form">
         <h5 className="form-title">Search form</h5>
         <div className="form-center">
-          <FormRow type="search" name="search" defaultValue="a" 
-          onChange={(e)=>submit(e.currentTarget.form)}></FormRow>
+          <FormRow type="search" name="search" defaultValue={search} 
+          onChange={(e)=> submit(e.currentTarget.form)}></FormRow>
 
           <FormRowSelect labelText="job status" name="jobStatus"
-           list={["all", ...Object.values(JOB_STATUS)]} defaultValue="all" 
+           list={["all", ...Object.values(JOB_STATUS)]} defaultValue={jobStatus} 
            onChange={(e)=>submit(e.currentTarget.form)}></FormRowSelect>
 
             <FormRowSelect labelText="job type" name="jobType"
-           list={["all", ...Object.values(JOB_TYPE)]} defaultValue="all" 
+           list={["all", ...Object.values(JOB_TYPE)]} defaultValue={jobType} 
            onChange={(e)=>submit(e.currentTarget.form)}></FormRowSelect>
 
             <FormRowSelect labelText="sort" name="sort"
-           list={[...Object.values(JOB_SORT_BY)]} defaultValue="newest" 
+           list={[...Object.values(JOB_SORT_BY)]} defaultValue={sort} 
            onChange={(e)=> submit(e.currentTarget.form)}></FormRowSelect>
 
            <Link to="/dashboard/all-jobs" className="btn form-btn delete-btn" style={{color: "white"}}>

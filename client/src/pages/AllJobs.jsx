@@ -25,10 +25,10 @@ const AllJobsContext=React.createContext();
 
 function AllJobs() {
   const {data, searchValues}=useLoaderData();
-  console.log({data});
-  const {jobs}=data;
-  console.log(jobs);
-  console.log(searchValues);
+  //console.log({data});
+  //const {jobs}=data;
+  //console.log(jobs);
+  //console.log(searchValues);
   
 
   return (

@@ -332,7 +332,8 @@ button:disabled {
 
 @media (min-width: 1120px) {
   .jobs {
-    grid-template-columns: 1fr 1fr !important;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 2rem;
   }
 }
