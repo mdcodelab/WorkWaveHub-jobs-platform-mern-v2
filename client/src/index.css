@@ -153,7 +153,7 @@ h5 {
   max-width: 40em;
 }
 
-small,
+.small,
 .text-small {
   font-size: var(--small-text);
 }
@@ -333,8 +333,7 @@ button:disabled {
 @media (min-width: 1120px) {
   .jobs {
     grid-template-columns: 1fr 1fr !important;
-    gap: 2rem; */
-    display: flex;
-    flex-wrap: wrap;
+    gap: 2rem;
   }
 }
+

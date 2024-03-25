@@ -12,9 +12,8 @@ import { toast } from "react-toastify";
       console.log(params);
   try {
     const {data} = await axios.get("/api/v1/jobs", {
-      params
-    });
-    return {data};
+      params});
+    return {data, searchValues: {...params}};
   } catch (error) {
     toast.error(
       `Error: ${error.response.data.message || error.response.statusText}`);
@@ -25,11 +24,15 @@ import { toast } from "react-toastify";
 const AllJobsContext=React.createContext();
 
 function AllJobs() {
-  const {data}=useLoaderData();
+  const {data, searchValues}=useLoaderData();
   console.log({data});
+  const {jobs}=data;
+  console.log(jobs);
+  console.log(searchValues);
+  
 
   return (
-    <AllJobsContext.Provider value={{data}}>
+    <AllJobsContext.Provider value={{data, searchValues}}>
       <SearchContainer></SearchContainer>
       <JobsContainer></JobsContainer>
     </AllJobsContext.Provider>

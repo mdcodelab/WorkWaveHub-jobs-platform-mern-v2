@@ -38,13 +38,13 @@ function AddJob() {
           <FormRow type="text" name="company"></FormRow>
           <FormRow type="text" labelText="job location" name="jobLocation" 
           defaultValue={user.location}></FormRow>
-          <button type="submit" className="btn btn-block form-btn" disabled={isSubmitting}>
-            {isSubmitting ? "Submitting..." : "Submit"}
-          </button>
           <FormRowSelect labelFor="jobStatus" name="jobStatus" 
           defaultValue={JOB_STATUS.PENDING} list={Object.values(JOB_STATUS)}></FormRowSelect>
            <FormRowSelect labelFor="jobType" name="jobType" 
           defaultValue={JOB_TYPE.FULL_TIME} list={Object.values(JOB_TYPE)}></FormRowSelect>
+          <button type="submit" className="btn btn-block form-btn" disabled={isSubmitting}>
+            {isSubmitting ? "Submitting..." : "Submit"}
+          </button>
         </div>
       </Form>
     </Wrapper>

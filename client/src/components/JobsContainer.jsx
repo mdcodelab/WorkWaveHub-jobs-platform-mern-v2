@@ -6,9 +6,10 @@ import Job from "./Job";
 function JobsContainer() {
   const {data}=useAllJobsContext();
   const{jobs}=data;
+  //console.log(jobs);
 
-  if(!jobs.length === 0) {
-    return <h2 style={{textAlign: "center"}}>No jobs to display.</h2>
+  if(jobs.length === 0) {
+    return <h4 style={{textAlign: "center"}}>No jobs to display...</h4>
   }
 
   return (

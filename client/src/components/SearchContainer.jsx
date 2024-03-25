@@ -7,8 +7,11 @@ import { useAllJobsContext } from "../pages/AllJobs";
 import styled from "styled-components";
 
 function SearchContainer() {
-  const {data}=useAllJobsContext();
+  const {data, searchValues}=useAllJobsContext();
+  const {search, jobStatus, jobType, sort}=searchValues; //can be set as default values
   
+
+  const submit = useSubmit();
 
   //get request in the form (by default) on the same page
   return (
@@ -16,18 +19,25 @@ function SearchContainer() {
       <Form className="form">
         <h5 className="form-title">Search form</h5>
         <div className="form-center">
-          <FormRow type="search" name="search" defaultValue="a"></FormRow>
+          <FormRow type="search" name="search" defaultValue="a" 
+          onChange={(e)=>submit(e.currentTarget.form)}></FormRow>
+
           <FormRowSelect labelText="job status" name="jobStatus"
-           list={["all", ...Object.values(JOB_STATUS)]} defaultValue="all"></FormRowSelect>
+           list={["all", ...Object.values(JOB_STATUS)]} defaultValue="all" 
+           onChange={(e)=>submit(e.currentTarget.form)}></FormRowSelect>
+
             <FormRowSelect labelText="job type" name="jobType"
-           list={["all", ...Object.values(JOB_TYPE)]} defaultValue="all"></FormRowSelect>
+           list={["all", ...Object.values(JOB_TYPE)]} defaultValue="all" 
+           onChange={(e)=>submit(e.currentTarget.form)}></FormRowSelect>
+
             <FormRowSelect labelText="sort" name="sort"
-           list={[...Object.values(JOB_SORT_BY)]} defaultValue="newest"></FormRowSelect>
-        </div>
-        <Link to="/dashboard/all-jobs" className="btn form-btn delete-btn">
+           list={[...Object.values(JOB_SORT_BY)]} defaultValue="newest" 
+           onChange={(e)=> submit(e.currentTarget.form)}></FormRowSelect>
+
+           <Link to="/dashboard/all-jobs" className="btn form-btn delete-btn" style={{color: "white"}}>
         Reset Search Values</Link>
-        {/* temporarily*/}
-        <button type="submit">Submit</button>
+        </div>
+        
       </Form>
     </Wrapper>
   );
@@ -57,7 +67,7 @@ const Wrapper = styled.section`
     row-gap: 1rem;
   }
   .form-btn {
-    align-self: end;
+    align-self: end !important;
     margin-top: 1rem;
     display: grid;
     place-items: center;
