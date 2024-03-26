@@ -30,7 +30,7 @@ function Landing() {
             <h1 data-aos="slide-down" data-aos-duration="2500">
               Job <span>Tracking</span> Platform
             </h1>
-            <p data-aos="fade" data-aos-duration="1500">
+            <p >
               This job platform is tailored to meet the demands of modern
               professionals and businesses alike. Whether you're an individual
               seeking your next career opportunity or an organization striving
@@ -164,7 +164,7 @@ const Wrapper = styled.div`
     color: #fff;
     font-size: 3rem;
     text-shadow: 0 1px 3px white;
-    margin-bottom: 3rem;
+    margin-bottom: 3.5rem;
   }
 
   .cover__content h1 span {
@@ -172,9 +172,10 @@ const Wrapper = styled.div`
   }
 
   .cover__content p {
-    line-height: 1.8rem;
+    line-height: 1.85rem;
     text-align: justify;
-    width: 80%;
+    width: 70%;
+    font-size: 1.15rem;
   }
 
   .buttons {
@@ -189,7 +190,7 @@ const Wrapper = styled.div`
     margin: 0 auto;
     width: max-content;
     margin-top: 2.5rem;
-    padding: 0.5rem 0.6rem;
+    padding: 0.8rem 0.8rem;
     background: var(--primary-900);
     transform: translateY(300px);
     animation: appear 1s ease forwards;
@@ -220,6 +221,10 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .footer__content {
+    margin-bottom: 1rem;
   }
 
   .footer__info {
