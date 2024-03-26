@@ -9,28 +9,56 @@ function PageContainer() {
     const {data}=useAllJobsContext();
     const {numberOfPages, currentPage}=data;
     console.log(numberOfPages, currentPage);
+
     const pages = [];
     for(let i =1; i<= numberOfPages; i++) {
         pages.push(i);
     }
-    console.log(pages);
+
+    const { search, pathname } = useLocation();
+    const navigate = useNavigate();
+    console.log(search);
+    console.log(pathname);
+    
+    function handlePageChange(pageNumber) {
+        //console.log(pageNumber);
+        const searchParams = new URLSearchParams(search);
+        searchParams.set("page", pageNumber);  //"page" - query params name on the server
+        console.log(searchParams);
+        navigate(`${pathname}?${searchParams.toString()}`);
+    }
+
 
   return (
-    <div>
-      <button className="btn prev-btn">
+    <Wrapper>
+      <button className="btn prev-btn" onClick={()=> {
+        let prevPage=currentPage - 1;
+        if(prevPage < 1) {prevPage = 1}
+        handlePageChange(prevPage);
+      }}>
         <HiChevronDoubleLeft></HiChevronDoubleLeft> Prev
       </button>
       <div className="btn-container">
         {pages.map((pageNumber)=> {
-            return <button className={`btn page-btn ${pageNumber === currentPage? "active" : ""}`} 
-            key={pageNumber}>{pageNumber}</button>
+            return <button className={`btn page-btn ${pageNumber === currentPage ? "set" : ""}`} 
+            key={pageNumber} onClick={()=>handlePageChange(pageNumber)}>{pageNumber}</button>
         })}
       </div>
-      <button className="btn next-btn">
+      <button className="btn next-btn" onClick={()=> {
+        let nextPage=currentPage+1;
+        if(nextPage >= pages.length) {nextPage = pages.length+1}
+        handlePageChange(nextPage);
+      }}>
         Next <HiChevronDoubleRight></HiChevronDoubleRight>
       </button>
-    </div>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+.set {
+    background: red !important;
+}
+`;
 
 export default PageContainer
