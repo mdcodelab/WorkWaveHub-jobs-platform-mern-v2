@@ -134,6 +134,11 @@ app.use("/api/v1/users", authenticateUser, userRouter);
 //   res.status(500).json({ msg: "Something went wrong" }); //"error" middleware is a catch-all for handling unexpected errors that occur during request processing.
 // });
 
+//entry point for the front-end: node server /localhost:3100
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./public", "index.html"));
+});
+
 const port = process.env.PORT || 3100;
 
 const start = async () => {

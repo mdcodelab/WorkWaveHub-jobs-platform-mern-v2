@@ -24,9 +24,9 @@ const LogoutContainer = () => {
         {user?.name ? user.name : "user"}
         <FaCaretDown />
       </button>
-      <div className={showLogout ? "btn dropdown show-dropdown" : "btn dropdown"}>
-        <button type="button" onClick={logoutUser}>
-          Logout
+      <div className={showLogout ? "dropdown show-dropdown" : "dropdown"}>
+        <button type="button" className="dropdown-btn" onClick={logoutUser}>
+          logout
         </button>
       </div>
     </Wrapper>

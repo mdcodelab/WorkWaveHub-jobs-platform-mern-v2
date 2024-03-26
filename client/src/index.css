@@ -338,7 +338,18 @@ button:disabled {
   }
 }
 
-.set {
-  background: red;
+.alert {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  width: 100%;
+  box-shadow: var(--shadow-2);
+  text-align: center;
+  visibility: hidden;
+  border-radius: var(--border-radius);
+  background: var(--primary-500);
+  color: #fff;
+  letter-spacing: 0.2rem;
+  cursor: pointer;
 }
 
