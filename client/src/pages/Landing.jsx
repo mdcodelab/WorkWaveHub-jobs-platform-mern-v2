@@ -30,7 +30,7 @@ function Landing() {
             <h1 data-aos="slide-down" data-aos-duration="2500">
               Job <span>Tracking</span> Platform
             </h1>
-            <p >
+            <p>
               This job platform is tailored to meet the demands of modern
               professionals and businesses alike. Whether you're an individual
               seeking your next career opportunity or an organization striving

@@ -34,7 +34,8 @@ import {dirname} from "path";
 import {fileURLToPath} from "url";
 import path from "path";
 const __dirname=dirname(fileURLToPath(import.meta.url));
-app.use(express.static(path.resolve(__dirname, "./public")));
+app.use(express.static(path.resolve(__dirname, "./client/dist")));
+
 
 
 app.use(cors());
@@ -136,7 +137,7 @@ app.use("/api/v1/users", authenticateUser, userRouter);
 
 //entry point for the front-end: node server /localhost:3100
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "./public", "index.html"));
+  res.sendFile(path.resolve(__dirname, "./client/dist", "index.html"));
 });
 
 const port = process.env.PORT || 3100;

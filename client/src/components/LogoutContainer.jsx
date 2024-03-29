@@ -72,7 +72,6 @@ const Wrapper = styled.div`
     color: var(--white);
     letter-spacing: var(--letter-spacing);
     text-transform: capitalize;
-    cursor: pointer;
     width: 100%;
     height: 100%;
     cursor: pointer;
